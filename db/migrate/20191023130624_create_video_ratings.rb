@@ -1,6 +1,6 @@
 class CreateVideoRatings < ActiveRecord::Migration[5.2]
   def change
-    create_table :video_ratings, :options => 'ENGINE=InnoDB ROW_FORMAT=DYNAMIC' do |t|
+    create_table :video_ratings do |t|
       t.float :rate
       t.text :comment
       t.references :end_user, foreign_key: true

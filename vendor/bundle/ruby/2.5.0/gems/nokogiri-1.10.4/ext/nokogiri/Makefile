@@ -12,29 +12,29 @@ NULLCMD = :
 #### Start of system configuration section. ####
 
 srcdir = .
-topdir = /home/ec2-user/.rbenv/versions/2.5.5/include/ruby-2.5.0
+topdir = /usr/include/ruby-2.5.0
 hdrdir = $(topdir)
-arch_hdrdir = /home/ec2-user/.rbenv/versions/2.5.5/include/ruby-2.5.0/x86_64-linux
+arch_hdrdir = /usr/include/x86_64-linux-gnu/ruby-2.5.0
 PATH_SEPARATOR = :
 VPATH = $(srcdir):$(arch_hdrdir)/ruby:$(hdrdir)/ruby
-prefix = $(DESTDIR)/home/ec2-user/.rbenv/versions/2.5.5
-rubysitearchprefix = $(rubylibprefix)/$(sitearch)
-rubyarchprefix = $(rubylibprefix)/$(arch)
+prefix = $(DESTDIR)/usr
+rubysitearchprefix = $(sitearchlibdir)/$(RUBY_BASE_NAME)
+rubyarchprefix = $(archlibdir)/$(RUBY_BASE_NAME)
 rubylibprefix = $(libdir)/$(RUBY_BASE_NAME)
 exec_prefix = $(prefix)
-vendorarchhdrdir = $(vendorhdrdir)/$(sitearch)
-sitearchhdrdir = $(sitehdrdir)/$(sitearch)
-rubyarchhdrdir = $(rubyhdrdir)/$(arch)
+vendorarchhdrdir = $(sitearchincludedir)/$(RUBY_VERSION_NAME)/vendor_ruby
+sitearchhdrdir = $(sitearchincludedir)/$(RUBY_VERSION_NAME)/site_ruby
+rubyarchhdrdir = $(archincludedir)/$(RUBY_VERSION_NAME)
 vendorhdrdir = $(rubyhdrdir)/vendor_ruby
 sitehdrdir = $(rubyhdrdir)/site_ruby
 rubyhdrdir = $(includedir)/$(RUBY_VERSION_NAME)
-vendorarchdir = $(vendorlibdir)/$(sitearch)
+vendorarchdir = $(rubysitearchprefix)/vendor_ruby/$(ruby_version)
 vendorlibdir = $(vendordir)/$(ruby_version)
 vendordir = $(rubylibprefix)/vendor_ruby
-sitearchdir = $(DESTDIR)./.gem.20191019-5415-4o3hxj
-sitelibdir = $(DESTDIR)./.gem.20191019-5415-4o3hxj
-sitedir = $(rubylibprefix)/site_ruby
-rubyarchdir = $(rubylibdir)/$(arch)
+sitearchdir = $(DESTDIR)./.gem.20191020-2463-1991i1w
+sitelibdir = $(DESTDIR)./.gem.20191020-2463-1991i1w
+sitedir = $(DESTDIR)/usr/local/lib/site_ruby
+rubyarchdir = $(rubyarchprefix)/$(ruby_version)
 rubylibdir = $(rubylibprefix)/$(ruby_version)
 sitearchincludedir = $(includedir)/$(sitearch)
 archincludedir = $(includedir)/$(arch)
@@ -52,9 +52,9 @@ infodir = $(datarootdir)/info
 docdir = $(datarootdir)/doc/$(PACKAGE)
 oldincludedir = $(DESTDIR)/usr/include
 includedir = $(prefix)/include
-localstatedir = $(prefix)/var
+localstatedir = $(DESTDIR)/var
 sharedstatedir = $(prefix)/com
-sysconfdir = $(prefix)/etc
+sysconfdir = $(DESTDIR)/etc
 datadir = $(datarootdir)
 datarootdir = $(prefix)/share
 libexecdir = $(exec_prefix)/libexec
@@ -65,10 +65,10 @@ archdir = $(rubyarchdir)
 
 CC = gcc
 CXX = g++
-LIBRUBY = $(LIBRUBY_A)
+LIBRUBY = $(LIBRUBY_SO)
 LIBRUBY_A = lib$(RUBY_SO_NAME)-static.a
-LIBRUBYARG_SHARED = -Wl,-rpath,$(libdir) -L$(libdir) 
-LIBRUBYARG_STATIC = -Wl,-rpath,$(libdir) -L$(libdir) -l$(RUBY_SO_NAME)-static
+LIBRUBYARG_SHARED = -l$(RUBY_SO_NAME)
+LIBRUBYARG_STATIC = -l$(RUBY_SO_NAME)-static
 empty =
 OUTFLAG = -o $(empty)
 COUTFLAG = -o $(empty)
@@ -79,15 +79,15 @@ cflags   = $(optflags) $(debugflags) $(warnflags)
 cxxflags = $(optflags) $(debugflags) $(warnflags)
 optflags = -O3
 debugflags = -ggdb3
-warnflags = -Wall -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wno-tautological-compare -Wno-parentheses-equality -Wno-constant-logical-operand -Wno-self-assign -Wunused-variable -Wimplicit-int -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wimplicit-function-declaration -Wdeprecated-declarations -Wno-packed-bitfield-compat -Wsuggest-attribute=noreturn -Wsuggest-attribute=format
+warnflags = -Wall -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wno-tautological-compare -Wno-parentheses-equality -Wno-constant-logical-operand -Wno-self-assign -Wunused-variable -Wimplicit-int -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wimplicit-function-declaration -Wdeprecated-declarations -Wmisleading-indentation -Wno-packed-bitfield-compat -Wsuggest-attribute=noreturn -Wsuggest-attribute=format -Wimplicit-fallthrough=0 -Wduplicated-cond -Wrestrict
 CCDLFLAGS = -fPIC
-CFLAGS   = $(CCDLFLAGS) $(cflags)  -g -DXP_UNIX -O3 -Wall -Wcast-qual -Wwrite-strings -Wmissing-noreturn -Winline -DNOKOGIRI_USE_PACKAGED_LIBRARIES $(ARCH_FLAG)
+CFLAGS   = $(CCDLFLAGS) -g -O2 -fdebug-prefix-map=/build/ruby2.5-QuZ2v8/ruby2.5-2.5.5=. -fstack-protector-strong -Wformat -Werror=format-security -fPIC  -g -DXP_UNIX -Wall -Wcast-qual -Wwrite-strings -Wmissing-noreturn -Winline -DNOKOGIRI_USE_PACKAGED_LIBRARIES $(ARCH_FLAG)
 INCFLAGS = -I. -I$(arch_hdrdir) -I$(hdrdir)/ruby/backward -I$(hdrdir) -I$(srcdir)
 DEFS     = 
-CPPFLAGS = -DHAVE_XMLPARSEDOC -DHAVE_XSLTPARSESTYLESHEETDOC -DHAVE_EXSLTFUNCREGISTER -DHAVE_XMLHASFEATURE -DHAVE_XMLFIRSTELEMENTCHILD -DHAVE_XMLRELAXNGSETPARSERSTRUCTUREDERRORS -DHAVE_XMLRELAXNGSETPARSERSTRUCTUREDERRORS -DHAVE_XMLRELAXNGSETVALIDSTRUCTUREDERRORS -DHAVE_XMLSCHEMASETVALIDSTRUCTUREDERRORS -DHAVE_XMLSCHEMASETPARSERSTRUCTUREDERRORS -I/var/www/html/MagiciansCircle/vendor/bundle/ruby/2.5.0/gems/nokogiri-1.10.4/ports/x86_64-pc-linux-gnu/libxslt/1.1.33/include -I/var/www/html/MagiciansCircle/vendor/bundle/ruby/2.5.0/gems/nokogiri-1.10.4/ports/x86_64-pc-linux-gnu/libxml2/2.9.9/include/libxml2 -I/var/www/html/MagiciansCircle/vendor/bundle/ruby/2.5.0/gems/nokogiri-1.10.4/ports/x86_64-pc-linux-gnu/libxml2/2.9.9/include/libxml2 -I/home/ec2-user/.rbenv/versions/2.5.5/include  $(DEFS) $(cppflags) "-DNOKOGIRI_LIBXML2_PATH=\"/var/www/html/MagiciansCircle/vendor/bundle/ruby/2.5.0/gems/nokogiri-1.10.4/ports/x86_64-pc-linux-gnu/libxml2/2.9.9\"" "-DNOKOGIRI_LIBXML2_PATCHES=\"0001-Revert-Do-not-URI-escape-in-server-side-includes.patch 0002-Remove-script-macro-support.patch 0003-Update-entities-to-remove-handling-of-ssi.patch\"" "-DNOKOGIRI_LIBXSLT_PATH=\"/var/www/html/MagiciansCircle/vendor/bundle/ruby/2.5.0/gems/nokogiri-1.10.4/ports/x86_64-pc-linux-gnu/libxslt/1.1.33\"" "-DNOKOGIRI_LIBXSLT_PATCHES=\"0001-Fix-security-framework-bypass.patch\""
-CXXFLAGS = $(CCDLFLAGS) $(cxxflags) $(ARCH_FLAG)
-ldflags  = -L. -L/home/ec2-user/.rbenv/versions/2.5.5/lib  -fstack-protector -rdynamic -Wl,-export-dynamic
-dldflags = -L/home/ec2-user/.rbenv/versions/2.5.5/lib  
+CPPFLAGS = -DHAVE_XMLPARSEDOC -DHAVE_XSLTPARSESTYLESHEETDOC -DHAVE_EXSLTFUNCREGISTER -DHAVE_XMLHASFEATURE -DHAVE_XMLFIRSTELEMENTCHILD -DHAVE_XMLRELAXNGSETPARSERSTRUCTUREDERRORS -DHAVE_XMLRELAXNGSETPARSERSTRUCTUREDERRORS -DHAVE_XMLRELAXNGSETVALIDSTRUCTUREDERRORS -DHAVE_XMLSCHEMASETVALIDSTRUCTUREDERRORS -DHAVE_XMLSCHEMASETPARSERSTRUCTUREDERRORS -I/vagrant/MagiciansCircle/vendor/bundle/ruby/2.5.0/gems/nokogiri-1.10.4/ports/x86_64-pc-linux-gnu/libxslt/1.1.33/include -I/vagrant/MagiciansCircle/vendor/bundle/ruby/2.5.0/gems/nokogiri-1.10.4/ports/x86_64-pc-linux-gnu/libxml2/2.9.9/include/libxml2 -I/vagrant/MagiciansCircle/vendor/bundle/ruby/2.5.0/gems/nokogiri-1.10.4/ports/x86_64-pc-linux-gnu/libxml2/2.9.9/include/libxml2 -Wdate-time -D_FORTIFY_SOURCE=2 $(DEFS) $(cppflags) "-DNOKOGIRI_LIBXML2_PATH=\"/vagrant/MagiciansCircle/vendor/bundle/ruby/2.5.0/gems/nokogiri-1.10.4/ports/x86_64-pc-linux-gnu/libxml2/2.9.9\"" "-DNOKOGIRI_LIBXML2_PATCHES=\"0001-Revert-Do-not-URI-escape-in-server-side-includes.patch 0002-Remove-script-macro-support.patch 0003-Update-entities-to-remove-handling-of-ssi.patch\"" "-DNOKOGIRI_LIBXSLT_PATH=\"/vagrant/MagiciansCircle/vendor/bundle/ruby/2.5.0/gems/nokogiri-1.10.4/ports/x86_64-pc-linux-gnu/libxslt/1.1.33\"" "-DNOKOGIRI_LIBXSLT_PATCHES=\"0001-Fix-security-framework-bypass.patch\""
+CXXFLAGS = $(CCDLFLAGS) -g -O2 -fdebug-prefix-map=/build/ruby2.5-QuZ2v8/ruby2.5-2.5.5=. -fstack-protector-strong -Wformat -Werror=format-security $(ARCH_FLAG)
+ldflags  = -L. -Wl,-Bsymbolic-functions -Wl,-z,relro -Wl,-z,now -fstack-protector -rdynamic -Wl,-export-dynamic
+dldflags = -Wl,-Bsymbolic-functions -Wl,-z,relro -Wl,-z,now -Wl,--compress-debug-sections=zlib 
 ARCH_FLAG = 
 DLDFLAGS = $(ldflags) $(dldflags) $(ARCH_FLAG)
 LDSHARED = $(CC) -shared
@@ -95,17 +95,17 @@ LDSHAREDXX = $(CXX) -shared
 AR = ar
 EXEEXT = 
 
-RUBY_INSTALL_NAME = $(RUBY_BASE_NAME)
-RUBY_SO_NAME = ruby
+RUBY_INSTALL_NAME = $(RUBY_BASE_NAME)2.5
+RUBY_SO_NAME = ruby-2.5
 RUBYW_INSTALL_NAME = 
 RUBY_VERSION_NAME = $(RUBY_BASE_NAME)-$(ruby_version)
 RUBYW_BASE_NAME = rubyw
 RUBY_BASE_NAME = ruby
 
-arch = x86_64-linux
+arch = x86_64-linux-gnu
 sitearch = $(arch)
 ruby_version = 2.5.0
-ruby = $(bindir)/$(RUBY_BASE_NAME)
+ruby = $(bindir)/$(RUBY_BASE_NAME)2.5
 RUBY = $(ruby)
 ruby_headers = $(hdrdir)/ruby.h $(hdrdir)/ruby/backward.h $(hdrdir)/ruby/ruby.h $(hdrdir)/ruby/defines.h $(hdrdir)/ruby/missing.h $(hdrdir)/ruby/intern.h $(hdrdir)/ruby/st.h $(hdrdir)/ruby/subst.h $(arch_hdrdir)/ruby/config.h
 
@@ -122,8 +122,8 @@ TOUCH = exit >
 #### End of system configuration section. ####
 
 preload = 
-libpath = . $(libdir) /var/www/html/MagiciansCircle/vendor/bundle/ruby/2.5.0/gems/nokogiri-1.10.4/ports/x86_64-pc-linux-gnu/libxml2/2.9.9/lib /var/www/html/MagiciansCircle/vendor/bundle/ruby/2.5.0/gems/nokogiri-1.10.4/ports/x86_64-pc-linux-gnu/libxslt/1.1.33/lib
-LIBPATH =  -L. -L$(libdir) -Wl,-rpath,$(libdir) -L/var/www/html/MagiciansCircle/vendor/bundle/ruby/2.5.0/gems/nokogiri-1.10.4/ports/x86_64-pc-linux-gnu/libxml2/2.9.9/lib -Wl,-rpath,/var/www/html/MagiciansCircle/vendor/bundle/ruby/2.5.0/gems/nokogiri-1.10.4/ports/x86_64-pc-linux-gnu/libxml2/2.9.9/lib -L/var/www/html/MagiciansCircle/vendor/bundle/ruby/2.5.0/gems/nokogiri-1.10.4/ports/x86_64-pc-linux-gnu/libxslt/1.1.33/lib -Wl,-rpath,/var/www/html/MagiciansCircle/vendor/bundle/ruby/2.5.0/gems/nokogiri-1.10.4/ports/x86_64-pc-linux-gnu/libxslt/1.1.33/lib
+libpath = . $(archlibdir) /vagrant/MagiciansCircle/vendor/bundle/ruby/2.5.0/gems/nokogiri-1.10.4/ports/x86_64-pc-linux-gnu/libxml2/2.9.9/lib /vagrant/MagiciansCircle/vendor/bundle/ruby/2.5.0/gems/nokogiri-1.10.4/ports/x86_64-pc-linux-gnu/libxslt/1.1.33/lib
+LIBPATH =  -L. -L$(archlibdir) -L/vagrant/MagiciansCircle/vendor/bundle/ruby/2.5.0/gems/nokogiri-1.10.4/ports/x86_64-pc-linux-gnu/libxml2/2.9.9/lib -L/vagrant/MagiciansCircle/vendor/bundle/ruby/2.5.0/gems/nokogiri-1.10.4/ports/x86_64-pc-linux-gnu/libxslt/1.1.33/lib
 DEFFILE = 
 
 CLEANFILES = mkmf.log
@@ -134,11 +134,11 @@ extout =
 extout_prefix = 
 target_prefix = /nokogiri
 LOCAL_LIBS = 
-LIBS =  /var/www/html/MagiciansCircle/vendor/bundle/ruby/2.5.0/gems/nokogiri-1.10.4/ports/x86_64-pc-linux-gnu/libxslt/1.1.33/lib/libexslt.a -lm -ldl -lz /var/www/html/MagiciansCircle/vendor/bundle/ruby/2.5.0/gems/nokogiri-1.10.4/ports/x86_64-pc-linux-gnu/libxml2/2.9.9/lib/libxml2.a /var/www/html/MagiciansCircle/vendor/bundle/ruby/2.5.0/gems/nokogiri-1.10.4/ports/x86_64-pc-linux-gnu/libxslt/1.1.33/lib/libxslt.a -ldl -lm -lz /var/www/html/MagiciansCircle/vendor/bundle/ruby/2.5.0/gems/nokogiri-1.10.4/ports/x86_64-pc-linux-gnu/libxml2/2.9.9/lib/libxml2.a -lpthread -ldl -lcrypt -lm   -lc 
+LIBS = $(LIBRUBYARG_SHARED) /vagrant/MagiciansCircle/vendor/bundle/ruby/2.5.0/gems/nokogiri-1.10.4/ports/x86_64-pc-linux-gnu/libxslt/1.1.33/lib/libexslt.a -lm -ldl -llzma -lz /vagrant/MagiciansCircle/vendor/bundle/ruby/2.5.0/gems/nokogiri-1.10.4/ports/x86_64-pc-linux-gnu/libxml2/2.9.9/lib/libxml2.a /vagrant/MagiciansCircle/vendor/bundle/ruby/2.5.0/gems/nokogiri-1.10.4/ports/x86_64-pc-linux-gnu/libxslt/1.1.33/lib/libxslt.a -ldl -lm -llzma -lz /vagrant/MagiciansCircle/vendor/bundle/ruby/2.5.0/gems/nokogiri-1.10.4/ports/x86_64-pc-linux-gnu/libxml2/2.9.9/lib/libxml2.a -llzma -lpthread -lgmp -ldl -lcrypt -lm   -lc 
 ORIG_SRCS = html_document.c html_element_description.c html_entity_lookup.c html_sax_parser_context.c html_sax_push_parser.c nokogiri.c xml_attr.c xml_attribute_decl.c xml_cdata.c xml_comment.c xml_document.c xml_document_fragment.c xml_dtd.c xml_element_content.c xml_element_decl.c xml_encoding_handler.c xml_entity_decl.c xml_entity_reference.c xml_io.c xml_libxml2_hacks.c xml_namespace.c xml_node.c xml_node_set.c xml_processing_instruction.c xml_reader.c xml_relax_ng.c xml_sax_parser.c xml_sax_parser_context.c xml_sax_push_parser.c xml_schema.c xml_syntax_error.c xml_text.c xml_xpath_context.c xslt_stylesheet.c
 SRCS = $(ORIG_SRCS) 
 OBJS = html_document.o html_element_description.o html_entity_lookup.o html_sax_parser_context.o html_sax_push_parser.o nokogiri.o xml_attr.o xml_attribute_decl.o xml_cdata.o xml_comment.o xml_document.o xml_document_fragment.o xml_dtd.o xml_element_content.o xml_element_decl.o xml_encoding_handler.o xml_entity_decl.o xml_entity_reference.o xml_io.o xml_libxml2_hacks.o xml_namespace.o xml_node.o xml_node_set.o xml_processing_instruction.o xml_reader.o xml_relax_ng.o xml_sax_parser.o xml_sax_parser_context.o xml_sax_push_parser.o xml_schema.o xml_syntax_error.o xml_text.o xml_xpath_context.o xslt_stylesheet.o
-HDRS = $(srcdir)/xml_libxml2_hacks.h $(srcdir)/xml_syntax_error.h $(srcdir)/xml_text.h $(srcdir)/xml_io.h $(srcdir)/xml_entity_reference.h $(srcdir)/xml_entity_decl.h $(srcdir)/html_sax_parser_context.h $(srcdir)/xml_sax_parser.h $(srcdir)/xml_dtd.h $(srcdir)/xml_processing_instruction.h $(srcdir)/html_entity_lookup.h $(srcdir)/xml_document_fragment.h $(srcdir)/html_sax_push_parser.h $(srcdir)/nokogiri.h $(srcdir)/xml_schema.h $(srcdir)/xslt_stylesheet.h $(srcdir)/xml_comment.h $(srcdir)/xml_element_decl.h $(srcdir)/xml_node_set.h $(srcdir)/xml_sax_push_parser.h $(srcdir)/xml_encoding_handler.h $(srcdir)/xml_attribute_decl.h $(srcdir)/xml_relax_ng.h $(srcdir)/xml_xpath_context.h $(srcdir)/xml_sax_parser_context.h $(srcdir)/xml_element_content.h $(srcdir)/html_element_description.h $(srcdir)/xml_cdata.h $(srcdir)/xml_namespace.h $(srcdir)/xml_node.h $(srcdir)/html_document.h $(srcdir)/xml_attr.h $(srcdir)/xml_reader.h $(srcdir)/xml_document.h
+HDRS = $(srcdir)/xml_xpath_context.h $(srcdir)/xml_sax_parser_context.h $(srcdir)/html_document.h $(srcdir)/xslt_stylesheet.h $(srcdir)/xml_node.h $(srcdir)/xml_syntax_error.h $(srcdir)/xml_reader.h $(srcdir)/xml_sax_parser.h $(srcdir)/html_entity_lookup.h $(srcdir)/xml_dtd.h $(srcdir)/xml_entity_decl.h $(srcdir)/xml_schema.h $(srcdir)/html_sax_push_parser.h $(srcdir)/xml_attr.h $(srcdir)/xml_document_fragment.h $(srcdir)/xml_cdata.h $(srcdir)/xml_document.h $(srcdir)/xml_processing_instruction.h $(srcdir)/xml_text.h $(srcdir)/xml_entity_reference.h $(srcdir)/xml_attribute_decl.h $(srcdir)/xml_io.h $(srcdir)/xml_element_content.h $(srcdir)/xml_comment.h $(srcdir)/html_element_description.h $(srcdir)/xml_node_set.h $(srcdir)/xml_element_decl.h $(srcdir)/nokogiri.h $(srcdir)/xml_encoding_handler.h $(srcdir)/xml_libxml2_hacks.h $(srcdir)/xml_relax_ng.h $(srcdir)/xml_sax_push_parser.h $(srcdir)/html_sax_parser_context.h $(srcdir)/xml_namespace.h
 LOCAL_HDRS = 
 TARGET = nokogiri
 TARGET_NAME = nokogiri

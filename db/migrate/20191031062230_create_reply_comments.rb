@@ -1,6 +1,6 @@
 class CreateReplyComments < ActiveRecord::Migration[5.2]
   def change
-    create_table :reply_comments,:options => 'ENGINE=InnoDB ROW_FORMAT=DYNAMIC' do |t|
+    create_table :reply_comments do |t|
       t.text :comment
       t.references :video_rating, foreign_key: true
       t.timestamps

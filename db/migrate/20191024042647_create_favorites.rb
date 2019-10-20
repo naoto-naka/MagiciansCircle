@@ -1,6 +1,6 @@
 class CreateFavorites < ActiveRecord::Migration[5.2]
   def change
-    create_table :favorites, :options => 'ENGINE=InnoDB ROW_FORMAT=DYNAMIC' do |t|
+    create_table :favorites do |t|
       t.references :end_user, foreign_key: true
       t.references :video, foreign_key: true
 
