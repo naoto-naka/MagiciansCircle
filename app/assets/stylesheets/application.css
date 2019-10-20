@@ -1,0 +1,105 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *= require fullcalendar
+ *= require jquery-ui/slider
+ *= require_tree .
+ *= require_self
+ */
+*{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+.fc-sun{
+  color: red;
+  background-color: #fff0f0;
+}
+.fc-sat{
+  color: blue;
+  background-color: #f0f0ff;
+}
+#modal-main{
+  display: none;
+  width: 500px;
+  height: 300px;
+  margin: 0;
+  padding: 0;
+  background-color: #ffffff;
+  color: #666666;
+  position: fixed;
+  z-index: 2;
+}
+#modal-bg{
+  display: none;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.5);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+input[type="text"]{
+  width: 500px;
+  height: 30px;
+}
+button[type="submit"]{
+  display: inline-block;
+  border-radius: 10%;
+  font-size: 15px;
+  text-align: center;
+  padding: 8px 10px;
+  line-height: 1em;
+  width: 70px;
+  background-color: black;
+  color: white;
+  cursor: pointer;
+  box-shadow:2px 2px 3px #666666;
+}
+button[type="submit"]:hover{
+  box-shadow: none;
+  opacity: 0.6;
+}
+.form,nav,ul,li{
+  display: inline-block;
+}
+
+ul{
+  padding-left: 5px;
+}
+li{
+  font-size: 15px;
+  list-style: none;
+  margin-right: 10px;
+}
+.bars{
+  font-size: 20px;
+  border-style: none;
+  outline: 0;
+}
+a:hover{
+  color: black;
+  background-color: transparent;
+}
+body{
+  margin-top: 10px;
+  height: 1200px;
+}
+header{
+  height: 85px;
+}
+.header-content{
+  padding-top: 20px;
+}
+footer{
+  text-align: center;
+}

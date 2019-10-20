@@ -1,0 +1,106 @@
+<div uk-grid>
+  <div class="uk-width-1-2">
+    <% if @event.image? %>
+      <%= image_tag @event.image.url %>
+    <% else %>
+      <%=image_tag "no_image(big).jpg" %>
+    <% end %>
+  </div>
+  <div class="uk-width-1-2">
+    <div class="contents-box"><h1><%= @event.title %></h1></div>
+    <h2>開催スポット</h2><div class="contents-box" id="venue"><p><%= @event.venue %></p></div>
+    <h2>開催日時</h2><div class="contents-box"><p><%= @event.start.strftime("%Y/%-m/%-d %H:%M")+" 〜 "+@event.end.strftime("%Y/%-m/%-d %H:%M") %></p></div>
+    <% if !@event.official_site.empty? %>
+      <h2>オフィシャルサイト</h2>
+      <div class="contents-box">
+        <p><%= link_to 'このイベントのオフィシャルサイトへ',@event.official_site, target: :_blank %></p>
+      </div>
+    <% end %>
+    <h2>開催場所</h2><div class="contents-box" id="address"><p><%= @event.address %></p></div>
+    <h2>アクセス</h2><div class="contents-box"><p><%= @event.access %></p></div>
+    <h2>料金<h2><div class="contents-box"><p><%= @event.fee %></p></div>
+  </div>
+</div>
+
+<h2>イベント内容について</h2><%= @event.description %><br>
+<div id="map_container">
+  <div id="map_canvas"></div>
+</div>
+<%= link_to "編集", edit_end_user_event_path(@event) %>
+<%= link_to "戻る", end_user_events_path, data:{"turbolinks" => false} %>
+
+
+  <p id="url"><%= link_to "", @event.official_site, target: :_blank %></p>
+
+
+<script>
+function initMap() {
+  jQuery(function($){
+    var map, map_center;
+    var title = $('#venue').text();//マーカーのタイトル
+
+    //マップ生成のオプション
+    //center は Geolocation から取得して後で設定
+    var opts = {
+      zoom: 16,
+      mapTypeId: "roadmap"
+    };
+
+    //マップのインスタンスを生成
+    map = new google.maps.Map(document.getElementById("map_canvas"), opts);
+
+    //ジオコーディングのインスタンスの生成
+    var geocoder = new google.maps.Geocoder();
+
+    var address = $('#address').text();
+    var my_reg = /〒\s?\d{3}(-|ー)\d{4}/;
+
+    address = address.replace(my_reg, '');
+
+    //geocoder.geocode() にアドレスを渡して、コールバック関数を記述して処理
+    geocoder.geocode( { 'address': address}, function(results, status) {
+      if (status === 'OK' && results[0]) {
+        //results[0].geometry.location に緯度・経度のオブジェクトが入っている
+        map_center = results[0].geometry.location;
+        //地図の中心位置を設定
+        map.setCenter(map_center);
+        //マーカーのインスタンスを生成
+        var marker = new google.maps.Marker({
+          //マーカーを配置する Map オブジェクトを指定
+          map: map,
+          //マーカーの初期の場所を示す LatLng を指定
+          position: map_center,
+          //マーカーをアニメーションで表示
+          animation: google.maps.Animation.DROP,
+          title: title
+        });
+ 
+        //情報ウィンドウに表示するコンテンツを作成
+        //urlが指定してあればリンクつきのタイトルと住所を表示（URLがない場合もあるため）
+        var url = $("#url a").attr('href');
+        var content;
+        if (url) {
+          content = '<div id="map_content"><p><a href="' + url + '" target="_blank"> ' + title + '</a><br>' + address + '</p></div>';
+        }else {
+          //urlが指定してなければ、リンクなしのタイトルと住所を表示
+          content = '<div id="map_content"><p>' + title + '<br>' + address + '</p></div>';
+        }
+ 
+        //情報ウィンドウのインスタンスを生成
+        var infowindow = new google.maps.InfoWindow({
+          content: content,
+        });
+ 
+        //marker をクリックすると情報ウィンドウを表示(リスナーの登録）
+        google.maps.event.addListener(marker, 'click', function() {
+          //第2引数にマーカーを指定して紐付け
+          infowindow.open(map, marker);
+        });
+      } else {
+        alert("住所から位置の取得ができませんでした。: " + status);
+      }
+    });
+  });
+}
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDZ4yJEQNRl6Ky0tTebMy6B-OQc1G17dEE&callback=initMap" >//initMap()以降に書かないといけない</script>

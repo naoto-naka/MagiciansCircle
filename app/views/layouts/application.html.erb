@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>MagiciansCircle</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.3/css/uikit.min.css" />
+    <!--<link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.3/js/uikit.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.3/js/uikit-icons.min.js"></script>
+    <script src="http://maps.google.com/maps/api/js?key=AIzaSyDZ4yJEQNRl6Ky0tTebMy6B-OQc1G17dEE&language=ja"></script>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+  <header>
+    <div uk-grid >
+        <div class="uk-width-1-4">
+          <%= link_to end_user_root_path do %>
+            <%= image_tag "logo.jpg" %>
+          <% end %>
+        </div>
+        <div class="uk-width-3-4 header-content">
+          <%= form_tag end_user_videos_path,method: :get, class: "form" do %>
+            <%= text_field_tag 'video[q]', '', placeholder: '検索するテキストを入力',required: true %>
+            <%= button_tag type: "submit" do %>
+              <i class="fa fa-search"></i>検索
+            <% end %>
+          <% end %>
+          <nav>
+            <% if end_user_signed_in? %>
+            <ul>
+              <li>
+                <%= link_to destroy_end_user_session_path,method: :delete do %>
+          　      <i class="fas fa-sign-out-alt"></i>ログアウト
+                <% end %>
+              </li>
+              <li>
+                <%= link_to end_user_mypage_path do%>
+                  <i class="fa fa-user"></i>マイページ
+                <% end %>
+              </li>
+            </ul>
+            <% else %>
+              <ul>
+              <li>
+                <%= link_to new_end_user_registration_path do %>
+          　      新規登録
+                <% end %>
+              </li>
+              <li>
+                <%= link_to new_end_user_session_path do %>
+          　      <i class="fas fa-sign-in-alt"></i>ログイン
+                <% end %>
+              </li>
+            </ul>
+      <% end %>
+          <button uk-toggle="target: #my-id" type="button" class="bars"><i class="fa fa-bars"></i></button>
+          <div id="my-id" uk-offcanvas="flip: true">
+            <div class="uk-offcanvas-bar">
+              <button class="uk-offcanvas-close" type="button" uk-close></button>
+              <h3>Title</h3>
+              <%= link_to end_user_mypage_path do%>
+                <i class="fa fa-user"></i>マイページ
+              <% end %><br>
+              <%= link_to destroy_end_user_session_path,method: :delete do %>
+        　      <i class="fas fa-sign-out-alt"></i>ログアウト
+              <% end %>
+                <%= link_to "このサイトについて", end_user_about_path %><br>
+   　　　　　　　　<%= link_to "動画投稿", new_end_user_video_path %><br>
+    　　　　　　　<%= link_to "動画一覧", end_user_videos_path %><br>
+    　　　　　　　<%= link_to "イベントカレンダー", end_user_events_path,data:{"turbolinks"=>false} %><br>
+    　　　　　　　<%= link_to "マイページ", end_user_mypage_path %><br>
+            </div>
+          </div>
+        </nav>
+      </div>
+      </div>
+    </div>
+  </header>
+  <body>
+    <div class="uk-container uk-container-center">
+      <%= yield %>
+    </div>
+  </body>
+  <footer>
+    <div>Logo made by <a href="https://www.designevo.com/logo-maker/" title="Free Online Logo Maker">DesignEvo free logo creator</a></div>
+    <a href="https://www.ac-illust.com/main/profile.php?id=bQMFJ57O&amp;area=1">オイオイ</a>さんによる<a href="https://www.ac-illust.com/">イラストAC</a>からのイラスト
+  </footer>
+</html>

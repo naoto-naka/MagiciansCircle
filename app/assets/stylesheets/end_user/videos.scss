@@ -1,0 +1,105 @@
+// Place all the styles related to the end_user::videos controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.video-container{
+  margin-bottom: 15px;
+}
+.right-part{
+  padding: 18px 0 0 15px;
+  font-size: 15px;
+  line-height: 1.5em;
+}
+.title-style{
+  font-weight: bold;
+  font-size: 20px;
+}
+ul{
+	margin: 0 0;
+}
+li.tag{
+    position: relative;
+    height: 30px;
+    line-height: 30px;
+    border-radius: 0 3px 3px 0;
+    color: #fff;
+    padding: 0 3px 0 0;
+}
+li.tag:nth-child(odd){
+	background-color: black;
+}
+li.tag:nth-child(even){
+	background-color: red;
+}
+li.tag:nth-child(odd)::before{
+  border-color: transparent black transparent transparent;
+}
+li.tag:nth-child(even)::before{
+  border-color: transparent red transparent transparent;
+}
+li.tag::before{
+  position: absolute;
+  top: 0;
+  left: -15px;
+  content: '';
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 15px 15px 15px 0;
+}
+.tag i{
+	color: #fff;
+}
+#video_tag_list{
+	width: 200px;
+}
+.video-info{
+	text-align: center;
+	padding-bottom: 10px;
+}
+#tag{
+	color: #fff;
+}
+#tag:visited {
+    color: #fff;
+}
+.fa-star-color{
+	color: gold;
+}
+.uk-grid>.uk-grid-margin {
+    margin-top: 20px;
+}
+.description{
+	border: solid 1px black;
+  height: 100px;
+}
+#under-line-delete{
+	text-decoration: none;
+}
+.fa-image input{
+  display: none;
+}
+#slider .ui-slider-range{
+  background: #729fcf;
+}
+#repeat:hover{
+  opacity: 0.8;
+  cursor: pointer;
+}
+.reply_box{
+  display: none;
+  text-align: center;
+}
+.reply_comment_box{
+  display: none;
+  text-align: center;
+}
+#reply:hover{
+  cursor: pointer;
+  text-decoration: underline;
+}
+.secret-submit{
+  display: none;
+}
+
+

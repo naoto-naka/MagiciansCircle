@@ -1,0 +1,10 @@
+<%= form_with model:@video, url: end_user_videos_path,method: :get do |f| %>
+  <%= f.select :video,[["選択してください",""],["再生回数",:play],["新着順",:new],["高評価",:rate]],{},onChange:"javascript: this.form.submit_button.click();" %>
+  <%= f.hidden_field :q, value: params[:video]? params[:video][:q]:"" %>
+  <div class="secret-submit"><%= f.submit "送信", name:"submit_button"%></div>
+<% end %>
+
+<div id="narrow-down-videos">
+  <%= render "end_user/videos/index",search_videos: @search_videos %>
+</div>
+

@@ -1,0 +1,159 @@
+<div id="video-id" data-id="<%=params[:id]%>"></div>
+<h1><%= @video.title %></h1>
+<ul>
+  <% @video_tags.each do |video_tag| %>
+       <li class="tag">
+         <%= link_to end_user_tag_path(name: video_tag),method: :delete do %>
+           <i class="fas fa-times-circle"></i> <!--タグの削除-->
+         <% end %>
+         <%= link_to video_tag, end_user_tags_path(@video,name: video_tag),class: "tag-name",id:"tag" %>
+       </li>
+     <% end %>
+</ul>
+<%= form_for @video,url: end_user_tags_path(@video),method: :post do |f|%>
+  <%= text_field_tag 'video[tag_list]','',placeholder: "タグ名を入力(15文字以内)" %>
+  <%= f.submit "登録" %>
+<% end %>
+<%= video_tag @video.video_url.to_s,loop: true, controls: true, width: 1200, id: "mv" %><br><br>
+
+<div id="slider"></div>
+<div style="text-align: right">
+<span style="float:left" id="min"></span><span id="max"></span>
+</div>
+
+  <div class="uk-margin">
+    <label class="uk-form-label" for="form-stacked-select">再生速度</label>
+    <select class="uk-select">
+      <option value="0.25">x0.25</option>
+      <option value="0.5">x0.5</option>
+      <option value="0.75">x0.75</option>
+      <option value="1.0" selected>x1.0</option>
+      <option value="1.25">x1.25</option>
+      <option value="1.5">x1.5</option>
+      <option value="1.75">x1.75</option>
+      <option value="2.0">x2.0</option>
+    </select>
+  </div>
+
+  <i class="fas fa-redo" id="repeat" style="color: blue; font-size: 20px;"></i>
+
+
+  <div class="uk-grid-divider uk-child-width-1-6 video-info" uk-grid>
+  <div>
+    投稿日時<br>
+    <%= @video.created_at.strftime("%Y/%-m/%-d %H:%M") %>
+  </div>
+  <div>
+    カテゴリー<br>
+    <%= link_to @video.category.category_name,end_user_categories_path(@video) %>
+  </div>
+  <div>
+    総評<br>
+    <% total_rating = 0 %>
+    <% @video.video_ratings.each do |rating| %>
+      <% total_rating += rating.rate %>
+    <% end %>
+    <%= total_rating %>
+  </div>
+  <div>
+    <% if !Favorite.exists?(end_user_id:current_end_user.id ,video_id: @video.id) %>
+      <%= link_to  end_user_favorite_video_path(@video.id), class: "fav", remote: true, title: "この動画のお気に入り登録を変更します。" do %>
+        <i class="fa fa-star" id="<%= @video.id %>"></i><br>
+      <% end %>
+    <% else %>
+      <%= link_to end_user_favorite_video_path(@video.id), class: "fav",remote: true do %>
+        <i class="fa fa-star fa-star-color" id="<%= @video.id %>"></i><br>
+      <% end %><br>
+    <% end %>
+  </div>
+   <div>
+    再生回数<br>
+    <div id="views"><%= @video.views %></div>
+  </div>
+
+
+
+</div>
+<div class="uk-section-muted description">説明文　<%= @video.description %><br></div>
+<%= link_to "編集",edit_end_user_video_path(@video.id) %>
+
+<%= link_to "コメントする",new_end_user_video_rating_path(video_id: @video.id),remote: true %>
+<div id="new-comment"></div>
+
+  <div id="test">
+    <%= render partial: "end_user/video_ratings/index",locals:{video_ratings: @video_ratings} %>
+  </div>
+
+<script>
+
+  var start_time;
+  var end_time;
+  var video_time;
+  var video = document.getElementById('mv');
+
+  $(function(){
+    $("#mv").on("loadedmetadata",function(){
+      video_time = Math.floor(video.duration);//再生中常時現在時刻を取得
+
+      $('#slider').slider({
+        min: 0,
+        max: video_time,
+        step: 1,
+        values: [0,video_time],
+        range: true,
+        change: function(e, ui) {
+          $('#min').html(ui.values[0]);
+          $('#max').html(ui.values[1]);
+          start_time = ui.values[0];
+          end_time = ui.values[1];
+        },
+        create: function(e, ui) {
+          var values = $(this).slider('option', 'values');
+          $('#min').html(values[0]);
+          $('#max').html(values[1]);
+        }
+      });
+      video.addEventListener('timeupdate', function (e) {
+        if(Math.floor(video.currentTime)　< start_time || Math.floor(video.currentTime) > end_time){//現在時刻が開始時刻より早い場合又は、現在時刻が終了時刻より大きい時
+          video.currentTime = start_time;//現在時刻を開始時刻にする
+        }
+        if(Math.floor(video.currentTime) === end_time){//現在時刻が終了時刻になったら
+          video.currentTime = start_time;//開始時刻に戻して再生
+          video.play();
+        }
+      });
+    });
+  });
+
+  /*$(function(){
+    $("#reply").on("click",function(){
+      $('div').removeClass('reply_box');
+    });
+    $("#cancel").on("click",function(){
+      $('#reply_box').addClass('reply_box');
+    });
+    $("#edit").on("click",function(){
+
+    })
+  });*/
+
+$(function(){
+  var id;
+    $("#mv").one("play",function(){
+       id = $("#video-id").data("id");
+      $.ajax({
+        url: `/end_user/video/${id}/count`,
+        type: 'POST',
+        data: {video_id: id},
+        datatype: "html",
+        success: function(data){
+          $("#views").text(data);
+        }
+      })
+    });
+  });
+
+
+</script>
+
+

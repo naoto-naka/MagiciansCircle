@@ -1,0 +1,88 @@
+
+<div class="main-visual"></div>
+<div class="uk-section uk-section news">
+  <h2>新着情報</h2>
+  <h3>動画</h3>
+  <% @new_videos.each do |video| %>
+    <%= video.created_at.strftime("%Y/%-m/%-d %H:%M") %>
+    <%= video.title %><br>
+  <% end %>
+  <h3>イベント</h3>
+  <% @new_events.each do |event| %>
+    <%= event.created_at.strftime("%Y/%-m/%-d %H:%M") %>
+    <%= event.title %><br>
+  <% end %>
+  <h2>更新情報</h2>
+  <h3>動画</h3>
+  <% @new_videos.each do |video| %>
+    <%= video.created_at.strftime("%Y/%-m/%-d %H:%M") %>
+    <%= video.title %><br>
+  <% end %>
+</div>
+<div uk-grid>
+  <div class="uk-width-1-4">
+    <div class="site-menu">
+  	  <%= link_to end_user_about_path do %>
+        <img src="/images/hat-icon.png">このサイトについて<img src="/images/hat-icon.png"><br>
+      <% end %>
+    </div>
+    <div class="site-menu">
+      <%= link_to new_end_user_video_path do %>
+        <img src="/images/video-new.png">　　動画投稿　　　<img src="/images/video-new.png"><br>
+      <% end %>
+    </div>
+    <div class="site-menu">
+      <%= link_to end_user_videos_path do %>
+        <img src="/images/video-index.png">　　動画一覧　　　<img src="/images/video-index.png"><br>
+      <% end %>
+    </div>
+    <div class="site-menu">
+      <%= link_to end_user_events_path,data:{"turbolinks"=>false} do %>
+        <img src="/images/calendar.png">イベントカレンダー<img src="/images/calendar.png"><br>
+      <% end %>
+    </div>
+    <div class="site-menu">
+      <%= link_to end_user_mypage_path do %>
+        <img src="/images/man-icon.png">　　マイページ　　<img src="/images/man-icon.png"><br>
+      <% end %>
+    </div>
+  </div>
+  <div class="uk-width-3-4">
+    <div uk-grid>
+    高評価動画ランキング
+      <% if @videos_rating_ranking %>
+        <% @videos_rating_ranking.each.with_index(1) do |ranking,i| %>
+          <div class="uk-grid-match uk-width-small">
+          <%= link_to end_user_video_path(ranking.id),id: "under-line-delete" do %>
+            <%= i %>位 <%= ranking.title %>
+            <%= image_tag(ranking.video_url(:screenshot), alt: "screenshot") %>
+          <% end %>
+        <% end %>
+      <% end %>
+    </div>
+    <div uk-grid>
+    再生回数ランキング
+      <% if @videos_views_ranking %>
+        <% @videos_views_ranking.each.with_index(1) do |ranking,i| %>
+          <div class="uk-grid-match uk-width-small">
+          <%= link_to end_user_video_path(ranking.id),id: "under-line-delete" do %>
+            <%= i %>位 <%= ranking.title %>
+            <%= image_tag(ranking.video_url(:screenshot), alt: "screenshot") %>
+          <% end %>
+        <% end %>
+      <% end %>
+    </div>
+    <div uk-grid>
+    新着動画一覧
+      <% if @new_videos %>
+        <% @new_videos.each do |video| %>
+          <div class="uk-grid-match uk-width-small">
+          <%= link_to end_user_video_path(video.id),id: "under-line-delete" do %>
+             <%= video.title %>
+            <%= image_tag(video.video_url(:screenshot), alt: "screenshot") %>
+          <% end %>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,30 @@
+<%= form_for @video_rating,url:end_user_video_rating_path(params[:id]),method: :patch,remote: true do |f| %>
+<div uk-grid>
+  <div id = "star" class="uk-width-1-5">
+    <%= f.label :rate, '評価' %>
+    <%= f.hidden_field :rate, id: :review_star %>
+  </div>
+
+  <div class="uk-width-1-5">
+    <%= f.label :comment, 'コメント' %>
+    <%= f.text_area :comment %>
+  </div>
+  <div class="uk-width-1-5">
+   <%= f.submit '変更する' %>
+  </div>
+
+</div>
+<% end %>
+
+<script>
+ $('#star').raty({
+    number: 5,
+　  score: 3,
+    size: 36,
+    starOff: '<%= asset_path('star-off.png') %>',
+    starOn: '<%= asset_path('star-on.png') %>',
+    starHalf: '<%= asset_path('star-half.png') %>',
+    scoreName: 'video_rating[rate]',
+    half: true,
+  });
+</script>

@@ -1,0 +1,12 @@
+<%= form_for @reply_comment,url:end_user_video_rating_reply_comments_path(params[:video_rating_id]),method: :post,remote: true do |f| %>
+  <div uk-grid >
+    <div class="uk-width-4-5">
+      <%= f.text_field :comment,placeholder: "返信" %>
+    </div>
+
+    <div class="uk-width-1-5">
+      <button id="cancel">キャンセル</button>
+      <%= f.submit '返信' %>
+    </div>
+  </div>
+<% end %>

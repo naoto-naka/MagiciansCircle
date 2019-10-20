@@ -1,0 +1,31 @@
+<%= form_for @video,url: end_user_video_path(@video.id) do |f| %>
+
+  <div class="uk-margin">
+    <%= f.label :title, "タイトル",class: "uk-form-label"   %>
+    <%= f.text_field :title,class: "uk-input"  %>
+  </div>
+
+  <div class="uk-margin">
+    <%= f.label :category_id, "カテゴリー",class: "uk-form-label"   %>
+    <%= f.collection_select :category_id,Category.all,:id,:category_name,{},class: "uk-select"   %>
+  </div>
+
+  <div class="uk-margin">
+    <%= f.label :description, "説明文",class: "uk-form-label"   %>
+    <%= f.text_area :description,class: "uk-textarea"  %>
+  </div>
+
+  <div class="uk-margin">
+  	<div uk-form-custom>
+      <%= f.label :video, "ファイル選択",class: "uk-form-label"   %>
+      <%= f.file_field :video %>
+    </div>
+  </div>
+
+  <div class="uk-margin">
+    <%= f.submit "登録",class: "uk-button uk-button-primary uk-width-1-1 " %>
+  </div>
+
+<% end %>
+<%= link_to "この動画を削除する",end_user_video_path(@video.id),method: :delete,class: "uk-button uk-button-danger uk-width-1-1 ",
+    data:{confirm: '本当に削除してよろしいですか？'} %>

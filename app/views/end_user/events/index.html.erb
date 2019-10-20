@@ -1,0 +1,29 @@
+<div id="calendar"></div>
+<%= link_to 'イベント登録', new_end_user_event_path %>
+<table class="uk-table uk-table-divider uk-text-center">
+  <thead>
+    <tr>
+      <th class="uk-text-center">タイトル</th>
+      <th class="uk-text-center">参加費</th>
+      <th class="uk-text-center">開始日時</th>
+      <th class="uk-text-center">終了日時</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @events.each do |event| %>
+      <tr>
+        <td><%= event.title.truncate(25)  %></td>
+        <td><%= event.fee.truncate(25)  %></td>
+        <td><%= event.start.strftime("%Y/%-m/%-d %H:%M") %></td>
+        <td><%= event.end.strftime("%Y/%-m/%-d %H:%M") %></td>
+        <td><%= link_to '詳細', end_user_event_path(event.id),class: "uk-button uk-button-default" %></td>
+        <td><%= link_to '編集', edit_end_user_event_path(event.id),class: "uk-button uk-button-secondary" %></td>
+        <td><%= link_to '削除', end_user_event_path(event.id), method: :delete, data: { confirm: '本当に削除しますか？-Are you sure?-' },class: "uk-button uk-button-danger" %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<!--<div id="modal-bg"></div>
+<dic id="modal-main"></dic>-->

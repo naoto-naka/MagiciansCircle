@@ -1,0 +1,71 @@
+<h2>アカウント情報編集-Edit <%= resource_name.to_s.humanize %>-</h2>
+
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+  <%= render "devise/shared/error_messages", resource: resource %>
+
+  <div class="uk-margin">
+    <%= f.label :user_name, "ユーザーネーム -User Name-" %><br>
+ 　 <div class="uk-inline">
+      <span class="uk-form-icon" uk-icon="icon: user"></span>
+      <%= f.text_field :user_name, autofocus: true,class: "uk-input" %>
+    </div>
+  </div>
+
+  <div class="uk-margin">
+    <%= f.label :email,"メールアドレス-Email-" %><br>
+    <div class="uk-inline">
+      <span class="uk-form-icon" uk-icon="icon: mail"></span>
+      <%= f.email_field :email, autocomplete: "email",class: "uk-input" %>
+    </div>
+  </div>
+
+  <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+    <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+  <% end %>
+
+  <div class="uk-margin">
+    <%= f.label :image, "プロフィール画像" %>
+    <%= f.file_field :image %>
+  </div>
+
+  <div class="uk-margin">
+    <%= f.label :current_password,"現在のパスワード-Current Password-" %><br>
+    <div class="uk-inline uk-form-password">
+      <span class="uk-form-icon" uk-icon="icon: lock"></span>
+      <%= f.password_field :current_password, autocomplete: "current-password",class: "uk-input" %>
+    </div>
+  </div>
+
+  <div class="uk-margin">
+    <%= f.label :password,"変更後のパスワード-Password-" %>
+    <i>(変更がない場合空欄-leave blank if you don't want to change it-)</i><br />
+    <div class="uk-inline uk-form-password">
+      <span class="uk-form-icon" uk-icon="icon: lock"></span>
+      <%= f.password_field :password, autocomplete: "new-password",class: "uk-input" %>
+    </div>
+    <% if @minimum_password_length %>
+      <br />
+      <em><%= @minimum_password_length %> 文字以上</em>
+    <% end %>
+  </div>
+
+  <div class="uk-margin">
+    <%= f.label :password_confirmation, "変更後のパスワード確認用（再入力） -Password Comfirmation-" %><br>
+    <div class="uk-inline uk-form-password">
+      <span class="uk-form-icon" uk-icon="icon: lock"></span>
+      <%= f.password_field :password_confirmation, autocomplete: "new-password",class: "uk-input" %>
+    </div>
+  </div>
+
+
+
+  <div class="actions">
+    <%= f.submit "更新-Update-",class: "uk-button uk-button-primary uk-width-1-1 " %>
+  </div>
+<% end %>
+
+<h3>退会はこちら-Cancel my account-</h3>
+
+<p> <%= button_to "退会-Cancel my acount-", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete,class: "uk-button uk-button-danger uk-button-small " %></p>
+
+<%= link_to "Back", :back %>
