@@ -5,7 +5,7 @@
     <%= f.label :email, "メールアドレス -Email-",class: "uk-form-label" %><br>
     <div class="uk-inline">
       <span class="uk-form-icon uk-form-icon-flip" uk-icon="icon: mail"></span>
-      <%= f.email_field :email,class: "uk-input", autofocus: true, autocomplete: "email" %>
+      <%= f.email_field :email,class: "uk-input uk-form-large",type: "text", autofocus: true, autocomplete: "email" %>
     </div>
   </div>
 
@@ -13,7 +13,7 @@
     <%= f.label :password, "パスワード -Password-",class: "uk-form-label" %><br />
     <div class="uk-inline">
       <span class="uk-form-icon uk-form-icon-flip" uk-icon="icon: lock"></span>
-      <%= f.password_field :password,class: "uk-input",autocomplete: "current-password" %>
+      <%= f.password_field :password,class: "uk-input uk-form-large",type: "text",autocomplete: "current-password" %>
     </div>
   </div>
 
