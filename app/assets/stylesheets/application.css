@@ -19,6 +19,12 @@
   margin: 0;
   box-sizing: border-box;
 }
+body{
+  height: 1500px;
+}
+.search-button{
+  height: 30px;
+}
 .fc-sun{
   color: red;
   background-color: #fff0f0;
@@ -106,7 +112,7 @@ footer{
 .login-form{
   height: 200px;
 }
-@media screen and (max-width: 425px){
+@media screen and (max-width: 639px){
 .pc-menu{
   display: none;
   }

@@ -101,5 +101,14 @@ li.tag::before{
 .secret-submit{
   display: none;
 }
-
-
+@media screen and (max-width: 639px){
+  .video-info{
+    text-align: center;
+    padding-bottom: 5px;
+  }
+  .right-part{
+    padding: 18px 0 0 15px;
+    font-size: 15px;
+    line-height: 1.3em;
+  }
+}

@@ -27,7 +27,7 @@
             <%= text_field_tag 'video[q]', '', placeholder: '検索するテキストを入力', required: true, class: "uk-input" %>
           <% end %>
 
-            <%= button_tag type: "submit" do %>
+            <%= button_tag type: "submit",class: "search-button" do %>
               <i class="fa fa-search"></i>検索
             <% end %>
 
@@ -85,12 +85,14 @@
     </div>
   </header>
   <body>
-    <div class="uk-container uk-container-center">
+    <div class="uk-container-large uk-container-center">
       <%= yield %>
     </div>
   </body>
   <footer>
+    <div uk-grid>
     <div>Logo made by <a href="https://www.designevo.com/logo-maker/" title="Free Online Logo Maker">DesignEvo free logo creator</a></div>
     <a href="https://www.ac-illust.com/main/profile.php?id=bQMFJ57O&amp;area=1">オイオイ</a>さんによる<a href="https://www.ac-illust.com/">イラストAC</a>からのイラスト
+  </div>
   </footer>
 </html>
