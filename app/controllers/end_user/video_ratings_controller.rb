@@ -8,15 +8,14 @@ class EndUser::VideoRatingsController < ApplicationController
   end
 
   def create
-    video_rating = VideoRating.new(video_rating_params)
-    video_rating.end_user_id = current_end_user.id
+    @video_rating = current_end_user.video_ratings.build(video_rating_params)
     respond_to do |format|
-      if video_rating.save
-        @video_ratings = video_rating.video.video_ratings
+      if @video_rating.save
+        @video_ratings = @video_rating.video.video_ratings
         format.html
-        format.js
+        format.js{ flash[:notice] = "コメント投稿完了しました。" }
       else
-        format.js{render :new}
+        format.js {render 'end_user/video_ratings/video_rating_result'}
       end
     end
   end

@@ -1,16 +1,14 @@
 <%= form_for @video_rating,url:end_user_video_rating_path(params[:id]),method: :patch,remote: true do |f| %>
-<div uk-grid>
+<div uk-grid class="uk-margin">
   <div id = "star" class="uk-width-1-5">
-    <%= f.label :rate, '評価' %>
     <%= f.hidden_field :rate, id: :review_star %>
   </div>
 
-  <div class="uk-width-1-5">
-    <%= f.label :comment, 'コメント' %>
-    <%= f.text_area :comment %>
+  <div class="uk-width-3-5">
+    <%= f.text_area :comment,class: "uk-textarea" %>
   </div>
   <div class="uk-width-1-5">
-   <%= f.submit '変更する' %>
+  <button type="submit" uk-icon="icon: refresh"></button>
   </div>
 
 </div>

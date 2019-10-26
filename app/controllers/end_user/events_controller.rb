@@ -15,7 +15,6 @@ class EndUser::EventsController < ApplicationController
         format.json { render :show, status: :created, location: @event }
       else
         format.html { render :new }
-        formant.json { render json: @event.errors, status: :unprocessable_entity }
       end
     end
   end

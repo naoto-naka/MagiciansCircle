@@ -2,13 +2,6 @@
 
 class EndUser::SessionsController < Devise::SessionsController
 
-  def after_sign_in_path_for(resource)
-    end_user_root_path #ログイン後遷移ページ
-  end
-
-  def after_sign_out_path_for(resource)
-    end_user_root_path #ログアウト後遷移ページ
-  end
   # before_action :configure_sign_in_params, only: [:create]
 
   # GET /resource/sign_in

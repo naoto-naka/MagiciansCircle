@@ -1,4 +1,6 @@
-
+<% if flash[:success] %>
+  <%= flash[:success] %>
+<% end %>
 <div class="main-visual"></div>
 <div class="uk-section news">
   <h2>新着情報</h2>
@@ -47,7 +49,7 @@
       <% end %>
     </div>
   </div>
-  <div class="uk-width-3-4@l uk-width-1-1 uk-text-center">
+  <div class="uk-width-3-4@l uk-width-1-1 uk-text-center uk-margin">
       <h2>高評価動画ランキング</h2>
       <% if @videos_rating_ranking %>
       <div uk-grid>

@@ -1,0 +1,6 @@
+<% reply_comment.errors.full_messages.each do |message| %>
+  <div class="uk-alert-warning" uk-alert>
+    <a class="uk-alert-close" uk-close></a>
+    <%= message %>
+  </div>
+<% end %>

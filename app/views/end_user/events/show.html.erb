@@ -26,7 +26,9 @@
 <div id="map_container">
   <div id="map_canvas"></div>
 </div>
-<%= link_to "編集", edit_end_user_event_path(@event) %>
+<%= link_to edit_end_user_event_path(@event) do %>
+  <span class="uk-icon-button" uk-icon="icon: pencil"></span>
+<% end %>
 <%= link_to "戻る", end_user_events_path, data:{"turbolinks" => false} %>
 
 

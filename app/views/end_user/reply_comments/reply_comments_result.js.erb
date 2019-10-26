@@ -1,0 +1,1 @@
+$('#reply-comment-result<%= @reply_comment.video_rating_id %>').html("<%= j(render partial: 'end_user/reply_comments/result_message', locals: {reply_comment: @reply_comment} )  %>");

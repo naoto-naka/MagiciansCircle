@@ -1,0 +1,2 @@
+$('#comment-edit-form<%= params[:id] %>').html("<%= j (render partial: 'edit', locals: {reply_comment: @reply_comment}) %>");
+$('#reply_box<%= params[:id] %>').fadeOut(800);

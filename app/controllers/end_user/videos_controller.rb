@@ -82,6 +82,6 @@ class EndUser::VideosController < ApplicationController
 
 private
   def video_params
-    params.require(:video).permit(:title,:description,:video,:category_id,:q,:play,:new,:rate)
+    params.require(:video).permit(:title,:description,:video,:category_id,:q,:play,:new,:rate,:limit)
   end
 end

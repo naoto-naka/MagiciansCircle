@@ -15,10 +15,16 @@
   height: 500px;
 }
 #url {
-  display: none;  /* 非表示 */
+  display: none;
 }
 /* 情報ウィンドウ（マーカーをクリックすると表示される領域）内 */
 #map_content {
   width: 250px;
   height: 70px;
+}
+.event-new-container{
+  height: 1200px;
+}
+.event-edit-container{
+  height: 1200px;
 }

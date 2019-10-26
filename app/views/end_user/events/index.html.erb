@@ -1,5 +1,9 @@
 <div id="calendar"></div>
-<%= link_to 'イベント登録', new_end_user_event_path %>
+<% if end_user_signed_in? %>
+  <%= link_to new_end_user_event_path do %>
+    <span class="uk-icon-button" uk-icon="icon: calendar" uk-tooltip="イベント登録"></span>
+  <% end %>
+<% end %>
 <table class="uk-table uk-table-divider uk-text-center">
   <thead>
     <tr>
@@ -17,9 +21,23 @@
         <td><%= event.fee.truncate(25)  %></td>
         <td><%= event.start.strftime("%Y/%-m/%-d %H:%M") %></td>
         <td><%= event.end.strftime("%Y/%-m/%-d %H:%M") %></td>
-        <td><%= link_to '詳細', end_user_event_path(event.id),class: "uk-button uk-button-default" %></td>
-        <td><%= link_to '編集', edit_end_user_event_path(event.id),class: "uk-button uk-button-secondary" %></td>
-        <td><%= link_to '削除', end_user_event_path(event.id), method: :delete, data: { confirm: '本当に削除しますか？-Are you sure?-' },class: "uk-button uk-button-danger" %></td>
+        <td>
+          <%= link_to end_user_event_path(event.id),class: "uk-button uk-button-default" do %>
+            <span uk-icon="icon: info" uk-tooltip="イベント詳細"></span>
+          <% end %>
+        </td>
+        <% if end_user_signed_in? && current_end_user.id == event.end_user_id %>
+          <td>
+            <%= link_to edit_end_user_event_path(event.id),class: "uk-button uk-button-secondary" do %>
+              <span uk-icon="icon: pencil" uk-tooltip="イベント編集"></span>
+            <% end %>
+          </td>
+          <td>
+            <%= link_to end_user_event_path(event.id), method: :delete, data: { confirm: '本当に削除しますか？-Are you sure?-' },class: "uk-button uk-button-danger" do %>
+              <span uk-icon="icon: trash" uk-tooltip="イベント削除"></span>
+            <% end %>
+          </td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>

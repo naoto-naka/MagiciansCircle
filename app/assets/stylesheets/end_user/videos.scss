@@ -101,6 +101,13 @@ li.tag::before{
 .secret-submit{
   display: none;
 }
+.video-new-container{
+  height: 1200px;
+}
+.video-edit-container{
+  height: 1200px;
+}
+
 @media screen and (max-width: 639px){
   .video-info{
     text-align: center;

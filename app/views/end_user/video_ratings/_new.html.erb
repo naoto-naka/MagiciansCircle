@@ -1,21 +1,20 @@
-<%= form_for @video_rating,url:end_user_video_ratings_path,method: :post,remote: true do |f| %>
-  <%= f.hidden_field :video_id, value: params[:video_id] %>
-<div uk-grid>
-  <div id = "star" class="uk-width-1-5">
-    <%= f.label :rate, '評価' %>
-    <%= f.hidden_field :rate, id: :review_star %>
-  </div>
-
-  <div class="uk-width-1-5">
-    <%= f.label :comment, 'コメント' %>
-    <%= f.text_area :comment %>
-  </div>
-  <div class="uk-width-1-5">
-   <%= f.submit '投稿する' %>
-  </div>
-
+<div class="comment-form-close-container<%= params[:video_id] %>">
+  <%= form_for @video_rating,url:end_user_video_ratings_path,method: :post,remote: true do |f| %>
+    <%= f.hidden_field :video_id, value: params[:video_id] %>
+    <div uk-grid>
+      <div id = "star" class="uk-width-1-5">
+        <%= f.hidden_field :rate, id: :review_star %>
+      </div>
+      <div class="uk-width-3-5">
+        <%= f.text_area :comment,size: '100x8' %>
+      </div>
+      <div class="uk-width-1-5">
+        <%= f.submit '投稿する',class: "uk-button uk-button-primary" %>
+        <span id="close<%= params[:video_id] %>"　type="button" uk-close style="margin-left: 15px; cursor: pointer;"></span>
+      </div>
+    </div>
+  <% end %>
 </div>
-<% end %>
 
 <script>
  $('#star').raty({
@@ -28,4 +27,8 @@
     scoreName: 'video_rating[rate]',
     half: true,
   });
+
+ $('#close<%= params[:video_id] %>').on('click',function(){
+    $('.comment-form-close-container<%= params[:video_id] %>').fadeOut(800)
+  })
 </script>

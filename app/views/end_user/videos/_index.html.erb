@@ -8,8 +8,9 @@
         <div class="uk-width-3-4@l uk-width-1-2 right-part">
           <span class="title-style"><%= video.title %><br></span>
           <%= video.end_user.user_name %>
-          <%= video.category.category_name %><br>
-          <%= video.description.truncate(50) %><br>
+          <%= video.category.category_name %>
+          <%= video.views %>回視聴<br>
+          <%= video.description.truncate(300) %><br>
         </div>
       </div>
     <% end %>

@@ -1,51 +1,66 @@
 
   <% @video_ratings.each do |video_rating| %>
-    <div uk-grid class="comment_box<%= video_rating.id %>">
-      <div class="uk-width-1-5">
-        <% if video_rating.end_user.image? %>
-          <%= image_tag video_rating.end_user.image.thumb.url %>
-        <% else %>
-          <%=image_tag "no_image.png", size: '80x80' %>
-        <% end %>
-      </div>
-      <div class="uk-width-3-5">
-        <%= video_rating.end_user.user_name %>
-        評価<%= video_rating.rate %>点
-        <%= video_rating.created_at.strftime("%Y/%-m/%-d") %><br>
-        <%= video_rating.comment %>
-      </div>
-      <div class="uk-width-1-5" >
-        <div>
-          <button class="sampleSelect" >▽</button>
+    <section class="uk-comment">
+      <div class="uk-comment-header uk-grid-medium uk-flex-middle" uk-grid>
+        <div class="uk-width-auto">
+          <% if video_rating.end_user.image? %>
+            <%= image_tag video_rating.end_user.image.thumb.url, class: "uk-border-circle" %>
+          <% else %>
+            <%=image_tag "no_image.png", size: '80x80', class: "uk-border-circle"  %>
+          <% end %>
         </div>
-        <ul>
-          <li> <%= link_to "編集", edit_end_user_video_rating_path(video_rating.id),remote: true %></li><br>
-          <li><%= link_to "削除", end_user_video_rating_path(video_rating.id),method: :delete,remote: true,"data-confirm": "本当に削除しますか？" %></li><br>
-          <li id="reply"><%= link_to "返信",new_end_user_video_rating_reply_comment_path(video_rating.id),remote: true %></li>
-        </ul>
-      </div>
-    </div>
+        <div class="uk-width-expand">
+          <h4 class="uk-comment-title uk-margin-remove">
 
-   <div id="reply-form<%= video_rating.id %>"></div>
+          <%= video_rating.end_user.user_name %></h4>
+          <ul class="uk-comment-meta uk-subnav uk-subnav-divider uk-margin-remove-top">
+            <li>評価<%= video_rating.rate %>点</li>
+            <li><%= video_rating.created_at.strftime("%Y/%-m/%-d") %></li>
+            <li>
+              <ul class="uk-iconnav">
+                <% if current_end_user.id == video_rating.end_user.id %>
+                  <li>
+                    <%= link_to edit_end_user_video_rating_path(video_rating.id),remote: true do %>
+                      <span class="uk-icon-button" uk-icon="icon: pencil" uk-tooltip="コメントを編集する">
+                    <% end %>
+                  </li>
+                  <li>
+                    <%= link_to end_user_video_rating_path(video_rating.id),method: :delete,remote: true,"data-confirm": "本当に削除しますか？" do %>
+                      <span class="uk-icon-button" uk-icon="icon: trash" uk-tooltip="コメントを削除する"></span>
+                    <% end %>
+                  </li>
+                <% end %>
+                <li id="reply">
+                  <%= link_to new_end_user_video_rating_reply_comment_path(video_rating.id),remote: true do %>
+                    <span class="uk-icon-button" uk-icon="icon: commenting" uk-tooltip="返信する">
+                  <% end %>
+                </li>
+              </ul>
+            </li>
+            <% if !video_rating.reply_comments.empty? %>
+              <li><%= link_to "javascript:;", id: :reply_index do %>
+                    <span class="uk-icon-button" uk-icon="icon: comments" uk-tooltip="返信一覧">
+                  <% end %>
+              </li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+      <div class="uk-comment-body">
+        <p><%= video_rating.comment %></p>
+      </div>
+      </section>
+
+    <div id="reply-comment-result<%= video_rating.id %>"></div>
+    <div id="reply-form<%= video_rating.id %>"></div>
     <div id="edit-video-rating-form<%= video_rating.id %>"></div>
 
-
-    <% video_rating.reply_comments.each do |reply_comment| %>
-      <div uk-grid class="reply_comment_box">
-        <div class="uk-width-4-5">
-          <%= reply_comment.comment %>
-        </div>
-        <div class="uk-width-1-5">
-          <%= link_to "編集", edit_end_user_video_rating_path(video_rating.id) %>
-          <%= link_to "削除", end_user_video_rating_reply_comment_path(video_rating.id,reply_comment.id),method: :delete,"data-confirm": "本当に削除しますか？" %><br>
-        </div>
-      </div>
-    <% end %>
+    <%= render partial: "end_user/video_ratings/reply",locals:{video_rating: video_rating} %>
 
   <% end %>
 
 <script>
-$(function(){
+/*$(function(){
   $(".sampleSelect")
     .on('click',function(){
       var menu = $(this).parent().next().show().position({
@@ -63,5 +78,11 @@ $(function(){
   .next()
   .hide()
   .menu();
+});*/
+
+$(function(){
+  $("#reply_index").on('click',function(){
+    $("div").removeClass('reply_comment_box');
+  });
 });
 </script>

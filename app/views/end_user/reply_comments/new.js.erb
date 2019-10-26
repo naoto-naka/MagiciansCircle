@@ -1,2 +1,2 @@
 $('#reply-form<%= params[:video_rating_id] %>').html("<%= j (render 'new') %>");
-$('#reply-form').fadeIn(800);
+$('#reply-form<%= params[:video_rating_id] %>').fadeIn(800);

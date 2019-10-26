@@ -1,10 +1,18 @@
 class ApplicationController < ActionController::Base
-  before_action :authenticate_end_user!
+  #before_action :authenticate_end_user!
   before_action :configure_permitted_parameters, if: :devise_controller?
 
+  def after_sign_in_path_for(resource)
+    if resource.is_a?(AdminUser)
+      admin_dashboard_path
+    else
+  	  end_user_root_path
+    end
+  end
 
-
-
+  def after_sign_out_path_for(resource_or_scope)
+    end_user_root_path
+  end
 
   protected
 
