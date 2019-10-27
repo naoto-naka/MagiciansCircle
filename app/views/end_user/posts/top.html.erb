@@ -2,8 +2,8 @@
   <%= flash[:success] %>
 <% end %>
 <div class="main-visual"></div>
-<div class="uk-section news">
-  <h2>新着情報</h2>
+<div class="uk-section-secondary news">
+  <h2>News</h2>
   <h3>動画</h3>
   <% @new_videos.each do |video| %>
     <%= video.created_at.strftime("%Y/%-m/%-d %H:%M") %>
@@ -16,36 +16,41 @@
   <% end %>
   <h2>更新情報</h2>
   <h3>動画</h3>
-  <% @new_videos.each do |video| %>
+  <% @update_videos.each do |video| %>
     <%= video.created_at.strftime("%Y/%-m/%-d %H:%M") %>
     <%= video.title %><br>
+  <% end %>
+  <h3>イベント</h3>
+  <% @update_events.each do |event| %>
+    <%= event.created_at.strftime("%Y/%-m/%-d %H:%M") %>
+    <%= event.title %><br>
   <% end %>
 </div>
 <div uk-grid>
   <div class="uk-width-1-4@l uk-width-1-1">
     <div class="site-menu">
   	  <%= link_to end_user_about_path do %>
-        <img src="/images/hat-icon.png">このサイトについて<img src="/images/hat-icon.png"><br>
+        <img src="/images/hat-icon.png">このサイトについて<img src="/images/hat-icon.png">
       <% end %>
     </div>
     <div class="site-menu">
       <%= link_to new_end_user_video_path do %>
-        <img src="/images/video-new.png">　　動画投稿　　　<img src="/images/video-new.png"><br>
+        <img src="/images/video-new.png">　　動画投稿　　　<img src="/images/video-new.png">
       <% end %>
     </div>
     <div class="site-menu">
       <%= link_to end_user_videos_path do %>
-        <img src="/images/video-index.png">　　動画一覧　　　<img src="/images/video-index.png"><br>
+        <img src="/images/video-index.png">　　動画一覧　　　<img src="/images/video-index.png">
       <% end %>
     </div>
     <div class="site-menu">
       <%= link_to end_user_events_path,data:{"turbolinks"=>false} do %>
-        <img src="/images/calendar.png">　イベントカレンダー　<img src="/images/calendar.png"><br>
+        <img src="/images/calendar.png">　イベントカレンダー　<img src="/images/calendar.png">
       <% end %>
     </div>
     <div class="site-menu">
       <%= link_to end_user_mypage_path do %>
-        <img src="/images/man-icon.png">　　マイページ　　<img src="/images/man-icon.png"><br>
+        <img src="/images/man-icon.png">　　マイページ　　<img src="/images/man-icon.png">
       <% end %>
     </div>
   </div>

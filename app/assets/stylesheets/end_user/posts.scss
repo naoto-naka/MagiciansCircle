@@ -24,7 +24,7 @@
 }
 .news{
   overflow: scroll;
-  background: skyblue;
+  background: #dc143c;
   height: 200px;
   text-align: center;
 }
@@ -34,6 +34,10 @@
 }
 .about-container{
   height: 1200px;
+  background-image: image-url("/images/about.jpg");
+  background-size: cover;
+  background-position: center;
+  text-align: center;
 }
 @media screen and (max-width: 639px){
  .main-visual{
