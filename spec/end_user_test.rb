@@ -1,4 +1,5 @@
-describe EndUser do
+
+describe EndUser,"モデル試験",type: :model do
     it 'エンドユーザ会員登録試験' do
       end_user = EndUser.new(
         email: 'c@c',
@@ -6,6 +7,5 @@ describe EndUser do
         encrypted_passwor: '123456'
       )
       expect(end_user).to be_valid
-      expect().to
   end
 end

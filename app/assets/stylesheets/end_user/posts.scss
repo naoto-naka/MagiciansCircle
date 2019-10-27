@@ -39,10 +39,21 @@
   background-position: center;
   text-align: center;
 }
+.about-main-container{
+  width: 600px;
+  margin: auto;
+  padding: 100px 0;
+  background:rgba(255,255,255,0.5);
+}
+.font-property{
+  color: blue;
+  font-size: 15px;
+  line-height: 1.5em;
+}
 @media screen and (max-width: 639px){
  .main-visual{
   height: 300px;
-}
-
  }
+
+}
 
