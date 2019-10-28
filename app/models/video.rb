@@ -12,4 +12,8 @@
 
   enum limit:{公開:0, プライベート:1}
 
+  validates :title, length: {in: 1..30}
+  validates :description, length: {in:0..800}
+  validates :video, presence: true
+
  end

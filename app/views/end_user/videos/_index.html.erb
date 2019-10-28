@@ -1,5 +1,6 @@
-<% search_videos.each do |video| %>
-    <%= link_to end_user_video_path(video.id),id: "under-line-delete" do %>
+<div class="videos_index_container">
+  <% search_videos.each do |video| %>
+    <%= link_to end_user_video_path(video.id),data: {"turbolinks" => false},id: "under-line-delete" do %>
       <div uk-grid class="video-container">
         <div class="uk-width-1-4@l uk-width-1-2">
           <%= video.created_at.strftime("%Y/%-m/%-d") %><br>
@@ -15,4 +16,6 @@
       </div>
     <% end %>
   <% end %>
+  <%= paginate search_videos,class: "uk-pagination uk-flex-center" %>
+</div>
 

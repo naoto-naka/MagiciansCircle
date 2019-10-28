@@ -1,3 +1,1 @@
-$('.reply-edit-form-close-container<%= params[:video_rating_id] %>').fadeOut(500)
-//$('comment-edit-form-close<%= @reply_comment.id %>').html("<%= j (render partial: 'end_user/video_ratings/reply_comment', locals: {video_rating: @video_rating,reply_comment: @reply_comment}) %>")
-$('#reply_box<%= params[:id] %>').fadeIn(500);//#comment-edit-form-close<%= params[:id] %>
+$('#comment-edit-form-close<%= @reply_comment.id %>').html("<%= j (render partial: 'end_user/video_ratings/reply_comment', locals: {video_rating: @video_rating,reply_comment: @reply_comment}) %>");

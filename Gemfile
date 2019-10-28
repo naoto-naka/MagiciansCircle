@@ -84,5 +84,6 @@ gem 'active_admin_flat_skin'
 gem 'json'
 gem 'mysql2'
 gem 'listen', '>= 3.0.5', '< 3.2'
-gem 'rspec-rails'
-
+#gem 'rspec-rails'
+gem 'factory_bot_rails'
+gem 'database_cleaner'

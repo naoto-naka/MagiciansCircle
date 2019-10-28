@@ -13,7 +13,7 @@
           <h4 class="uk-comment-title uk-margin-remove">
 
           <%= video_rating.end_user.user_name %></h4>
-          <ul class="uk-comment-meta uk-subnav uk-subnav-divider uk-margin-remove-top">
+          <ul class="uk-comment-meta uk-subnav uk-subnav-divider">
             <li>評価<%= video_rating.rate %>点</li>
             <li><%= video_rating.created_at.strftime("%Y/%-m/%-d") %></li>
             <li>
@@ -38,16 +38,17 @@
               </ul>
             </li>
             <% if !video_rating.reply_comments.empty? %>
-              <li><%= link_to "javascript:;", id: :reply_index do %>
-                    <span class="uk-icon-button" uk-icon="icon: comments" uk-tooltip="返信一覧">
-                  <% end %>
+              <li>
+                <%= link_to "javascript:;", id: :reply_index do %>
+                  <span class="uk-icon-button" uk-icon="icon: comments" uk-tooltip="返信一覧">
+                <% end %>
               </li>
             <% end %>
           </ul>
         </div>
       </div>
       <div class="uk-comment-body">
-        <p><%= video_rating.comment %></p>
+        <p style="margin-left: 110px;"><%= video_rating.comment %></p>
       </div>
       </section>
 
@@ -55,31 +56,13 @@
     <div id="reply-form<%= video_rating.id %>"></div>
     <div id="edit-video-rating-form<%= video_rating.id %>"></div>
 
-    <%= render partial: "end_user/video_ratings/reply",locals:{video_rating: video_rating} %>
+    <div id="reply_comments_index">
+      <%= render partial: "end_user/reply_comments/index",locals:{video_rating: video_rating} %>
+    </div>
 
   <% end %>
 
 <script>
-/*$(function(){
-  $(".sampleSelect")
-    .on('click',function(){
-      var menu = $(this).parent().next().show().position({
-        my: "left top",
-        at: "left bottom",
-        of: this
-      });
-      $( document ).one( 'click', function() {
-        menu.hide();
-      });
-      return false;
-    })
-  .parent()
-  .buttonset()
-  .next()
-  .hide()
-  .menu();
-});*/
-
 $(function(){
   $("#reply_index").on('click',function(){
     $("div").removeClass('reply_comment_box');

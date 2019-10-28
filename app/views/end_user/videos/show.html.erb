@@ -88,7 +88,7 @@
   <div id="flash_messages"></div>
 
 
-  <div id="test">
+  <div id="video_ratings_index">
     <%= render partial: "end_user/video_ratings/index",locals:{video_ratings: @video_ratings} %>
   </div>
 
@@ -112,16 +112,20 @@
         step: 1,
         values: [0,video_time],
         range: true,
-        change: function(e, ui) {
-          $('#min').html(ui.values[0]);
-          $('#max').html(ui.values[1]);
+        change: function(e, ui) {  //スライダーの変化時に時間表示を更新
+          var hms1 = toHms(ui.values[0]);
+          var hms2 = toHms(ui.values[1]);
+          $('#min').html(hms1);
+          $('#max').html(hms2);
           start_time = ui.values[0];
           end_time = ui.values[1];
         },
-        create: function(e, ui) {
+        create: function(e, ui) { //スライダー初期化時に時間表示を反映
           var values = $(this).slider('option', 'values');
-          $('#min').html(values[0]);
-          $('#max').html(values[1]);
+          var hms1 = toHms(values[0]);
+          var hms2 = toHms(values[1]);
+          $('#min').html(hms1);
+          $('#max').html(hms2);
         }
       });
       video.addEventListener('timeupdate', function (e) {
@@ -136,22 +140,10 @@
     });
   });
 
-  /*$(function(){
-    $("#reply").on("click",function(){
-      $('div').removeClass('reply_box');
-    });
-    $("#cancel").on("click",function(){
-      $('#reply_box').addClass('reply_box');
-    });
-    $("#edit").on("click",function(){
-
-    })
-  });*/
-
-$(function(){
-  var id;
+  $(function(){
+    var id;
     $("#mv").one("play",function(){
-       id = $("#video-id").data("id");
+      id = $("#video-id").data("id");
       $.ajax({
         url: `/end_user/video/${id}/count`,
         type: 'POST',
@@ -160,9 +152,35 @@ $(function(){
         success: function(data){
           $("#views").text(data);
         }
-      })
+      });
     });
   });
+
+function toHms(t){
+    var hms = "";
+    var h = t / 3600 | 0;
+    var m = t % 3600 / 60 | 0;
+    var s = t % 60;
+
+    if(h !== 0){
+      hms = h + ":" + padZero(m) + ":" + padZero(s);
+    }else if (m !== 0){
+      hms = m + ":" + padZero(s);
+    }else{
+      hms = "0" + ":" + padZero(s);
+    }
+
+    return hms;
+
+    function padZero(v){
+      if(v < 10){
+        return "0" + v;
+      }else{
+        return v;
+      }
+    };
+  };
+
 
 
 </script>

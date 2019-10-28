@@ -1,5 +1,0 @@
-<% video_rating.reply_comments.each do |reply_comment| %>
-  <div id="comment-edit-form-close<%= reply_comment.id %>">
-    <%= render partial: "end_user/video_ratings/reply_comment",locals: {reply_comment: reply_comment,video_rating: video_rating} %>
-  </div>
-<% end %>

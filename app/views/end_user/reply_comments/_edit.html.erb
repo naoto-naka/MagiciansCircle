@@ -1,4 +1,4 @@
-<div class="reply-edit-form-close-container<%= params[:video_rating_id] %>">
+<div class="reply-edit-form-close-container<%= params[:id] %>">
   <%= form_for reply_comment,url:end_user_video_rating_reply_comment_path(params[:video_rating_id],reply_comment.id),method: :patch,remote: true do |f| %>
     <div uk-grid>
       <div class="uk-margin uk-width-4-5 ">
@@ -7,15 +7,15 @@
 
       <div class="uk-width-1-5">
         <%= f.submit '返信',class: "uk-button uk-button-primary" %>
-        <span id="shut<%= params[:video_rating_id] %>"　type="button" uk-close style="margin-left: 15px; cursor: pointer;"></span>
+        <span id="shut<%= params[:id] %>"　type="button" uk-close style="margin-left: 15px; cursor: pointer;"></span>
       </div>
     </div>
   <% end %>
 </div>
 
 <script>
-  $('#shut<%= params[:video_rating_id] %>').on('click',function(){
-  	$('.reply-edit-form-close-container<%= params[:video_rating_id] %>').fadeOut(800);
-    $('#reply_box<%= params[:video_rating_id] %>').fadeIn(800);
+  $('#shut<%= params[:id] %>').on('click',function(){
+  	$('.reply-edit-form-close-container<%= params[:id] %>').fadeOut(800);
+    $('#reply_box<%= params[:id] %>').show();
   });
 </script>

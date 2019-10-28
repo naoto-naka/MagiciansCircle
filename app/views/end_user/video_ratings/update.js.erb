@@ -1,2 +1,2 @@
-$('#test').html("<%= j(render partial: 'end_user/video_ratings/index',locals:{video_ratings: @video_ratings}) %> ")
+$('#video_ratings_index').html("<%= j(render partial: 'end_user/video_ratings/index',locals:{video_ratings: @video_ratings}) %> ")
 $('#edit-video-rating-form<%= params[:id] %>').hide();

@@ -10,6 +10,7 @@ class EndUser::ReplyCommentsController < ApplicationController
 	def create
 		@reply_comment = ReplyComment.new(reply_comment_params)
 		@reply_comment.video_rating_id = params[:video_rating_id]
+		@video_rating = VideoRating.find(params[:video_rating_id])
 		respond_to do |format|
 		  if @reply_comment.save
 			  format.html
@@ -43,8 +44,15 @@ class EndUser::ReplyCommentsController < ApplicationController
 
 	def destroy
 		reply_comment = ReplyComment.find(params[:id])
-		reply_comment.destroy
-		redirect_back(fallback_location: end_user_root_path)
+		@video_rating = VideoRating.find(params[:video_rating_id])
+		respond_to do |format|
+		  if reply_comment.destroy
+		    format.html
+		    format.js
+		  else
+		    format.js
+		  end
+		end
 	end
 
 	private
