@@ -51,13 +51,13 @@ $(function(){
 });
 
 $(function() {
-    $(document).on("ajax:success", ".fav", function(e) {
-      if ($('#' + e.detail[0]).hasClass('fa-star-color')) {
-        $('#' + e.detail[0]).removeClass('fa-star-color');
-      } else {
-        $('#' + e.detail[0]).addClass('fa-star-color');
-      }
-    });
+  $(document).on("ajax:success", ".fav", function(e) {
+    if ($('#' + e.detail[0]).hasClass('fa-star-color')) {
+      $('#' + e.detail[0]).removeClass('fa-star-color');
+    } else {
+      $('#' + e.detail[0]).addClass('fa-star-color');
+    }
   });
+});
 
 

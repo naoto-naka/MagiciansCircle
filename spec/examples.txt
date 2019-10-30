@@ -2,4 +2,6 @@ example_id                   | status | run_time        |
 ---------------------------- | ------ | --------------- |
 ./spec/end_user_test.rb[1:1] | passed | 0.03266 seconds |
 ./spec/end_user_test.rb[1:2] | failed | 0.06097 seconds |
-./spec/video_test.rb[1:1]    | failed | 0.05142 seconds |
+./spec/event_test.rb[1:1]    | passed | 0.04185 seconds |
+./spec/event_test.rb[1:2]    | failed | 0.02205 seconds |
+./spec/video_test.rb[1:1]    | passed | 0.58926 seconds |

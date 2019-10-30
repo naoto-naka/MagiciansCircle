@@ -4,7 +4,6 @@
       <div class="uk-margin uk-width-4-5 ">
         <%= f.text_field :comment,placeholder: "返信",class: "uk-input" %>
       </div>
-
       <div class="uk-width-1-5">
         <%= f.submit '返信',class: "uk-button uk-button-primary" %>
         <span id="shut<%= params[:id] %>"　type="button" uk-close style="margin-left: 15px; cursor: pointer;"></span>
@@ -15,7 +14,7 @@
 
 <script>
   $('#shut<%= params[:id] %>').on('click',function(){
-  	$('.reply-edit-form-close-container<%= params[:id] %>').fadeOut(800);
+    $('.reply-edit-form-close-container<%= params[:id] %>').fadeOut(800);
     $('#reply_box<%= params[:id] %>').show();
   });
 </script>

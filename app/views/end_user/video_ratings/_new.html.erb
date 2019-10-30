@@ -17,7 +17,7 @@
 </div>
 
 <script>
- $('#star').raty({
+  $('#star').raty({
     number: 5,
 　  score: 3,
     size: 36,
@@ -28,7 +28,7 @@
     half: true,
   });
 
- $('#close<%= params[:video_id] %>').on('click',function(){
-    $('.comment-form-close-container<%= params[:video_id] %>').fadeOut(800)
-  })
+  $('#close<%= params[:video_id] %>').on('click',function(){
+    $('.comment-form-close-container<%= params[:video_id] %>').fadeOut(800);
+  });
 </script>

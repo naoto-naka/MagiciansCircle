@@ -19,7 +19,7 @@ ActiveAdmin.register EndUser do
   index do
     column :id
     column :image do |end_user|
-       image_tag end_user.image.thumb.url unless end_user.image.thumb.url.nil?
+      image_tag end_user.image.thumb.url unless end_user.image.thumb.url.nil?
     end
     column :user_name
     column :email

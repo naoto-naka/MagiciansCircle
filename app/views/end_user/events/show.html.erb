@@ -26,13 +26,15 @@
 <div id="map_container">
   <div id="map_canvas"></div>
 </div>
-<%= link_to edit_end_user_event_path(@event) do %>
-  <span class="uk-icon-button" uk-icon="icon: pencil"></span>
+<% if end_user_signed_in? %>
+  <% if @event.end_user_id == current_end_user.id %>
+    <%= link_to edit_end_user_event_path(@event) do %>
+      <span class="uk-icon-button" uk-icon="icon: pencil"></span>
+    <% end %>
+  <% end %>
 <% end %>
 <%= link_to "戻る", end_user_events_path, data:{"turbolinks" => false} %>
-
-
-  <p id="url"><%= link_to "", @event.official_site, target: :_blank %></p>
+<p id="url"><%= link_to "", @event.official_site, target: :_blank %></p>
 
 
 <script>
@@ -47,18 +49,13 @@ function initMap() {
       zoom: 16,
       mapTypeId: "roadmap"
     };
-
     //マップのインスタンスを生成
     map = new google.maps.Map(document.getElementById("map_canvas"), opts);
-
     //ジオコーディングのインスタンスの生成
     var geocoder = new google.maps.Geocoder();
-
     var address = $('#address').text();
     var my_reg = /〒\s?\d{3}(-|ー)\d{4}/;
-
     address = address.replace(my_reg, '');
-
     //geocoder.geocode() にアドレスを渡して、コールバック関数を記述して処理
     geocoder.geocode( { 'address': address}, function(results, status) {
       if (status === 'OK' && results[0]) {
@@ -76,23 +73,23 @@ function initMap() {
           animation: google.maps.Animation.DROP,
           title: title
         });
- 
+
         //情報ウィンドウに表示するコンテンツを作成
         //urlが指定してあればリンクつきのタイトルと住所を表示（URLがない場合もあるため）
         var url = $("#url a").attr('href');
         var content;
         if (url) {
           content = '<div id="map_content"><p><a href="' + url + '" target="_blank"> ' + title + '</a><br>' + address + '</p></div>';
-        }else {
+        } else {
           //urlが指定してなければ、リンクなしのタイトルと住所を表示
           content = '<div id="map_content"><p>' + title + '<br>' + address + '</p></div>';
         }
- 
+
         //情報ウィンドウのインスタンスを生成
         var infowindow = new google.maps.InfoWindow({
           content: content,
         });
- 
+
         //marker をクリックすると情報ウィンドウを表示(リスナーの登録）
         google.maps.event.addListener(marker, 'click', function() {
           //第2引数にマーカーを指定して紐付け
@@ -103,6 +100,8 @@ function initMap() {
       }
     });
   });
-}
+};
+
 </script>
+
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDZ4yJEQNRl6Ky0tTebMy6B-OQc1G17dEE&callback=initMap" >//initMap()以降に書かないといけない</script>

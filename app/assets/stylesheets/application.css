@@ -122,6 +122,12 @@ footer{
 .end-user-edit-container{
   height: 1200px;
 }
+.signup-container{
+  height: 1200px;
+}
+.login-container{
+  height: 1200px;
+}
 @media screen and (max-width: 639px){
   .pc-menu{
     display: none;

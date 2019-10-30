@@ -60,7 +60,8 @@ class EndUser::VideoRatingsController < ApplicationController
     end
   end
 
-private
+  private
+
   def video_rating_params
     params.require(:video_rating).permit(:title,:rate,:video_id,:comment)
   end

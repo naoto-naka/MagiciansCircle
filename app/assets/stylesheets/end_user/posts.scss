@@ -50,6 +50,30 @@
   font-size: 15px;
   line-height: 1.5em;
 }
+.crown1{
+  color: gold;
+}
+.crown2{
+  color: silver;
+}
+.crown3{
+  color:chocolate;
+}
+.rankingframe1{
+  border:solid 5px gold;
+}
+.rankingframe2{
+  border:solid 5px silver;
+}
+.rankingframe3{
+  border:solid 5px chocolate;
+}
+.ranking-title{
+  width: 250px;
+}
+.new-videos{
+  width: 350px;
+}
 @media screen and (max-width: 639px){
  .main-visual{
   height: 300px;

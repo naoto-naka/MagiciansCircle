@@ -2,7 +2,7 @@ class EndUser::FavoritesController < ApplicationController
   before_action :set_params,only: [:favorite]
 
   def index
-    @favorite_videos = current_end_user.favorites_videos
+    @favorite_videos = current_end_user.favorites_videos.page(params[:page])
   end
 
   def favorite
@@ -16,6 +16,7 @@ class EndUser::FavoritesController < ApplicationController
   end
 
   private
+
   def set_params
     @end_user = current_end_user
     @video = Video.find(params[:id])

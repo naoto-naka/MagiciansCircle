@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_31_062230) do
+ActiveRecord::Schema.define(version: 2019_10_31_062231) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string "namespace"
@@ -102,6 +102,8 @@ ActiveRecord::Schema.define(version: 2019_10_31_062230) do
     t.integer "video_rating_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "end_user_id"
+    t.index ["end_user_id"], name: "index_reply_comments_on_end_user_id"
     t.index ["video_rating_id"], name: "index_reply_comments_on_video_rating_id"
   end
 

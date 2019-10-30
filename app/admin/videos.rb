@@ -14,7 +14,7 @@ ActiveAdmin.register Video do
   #   permitted << :other if params[:action] == 'create' && current_user.admin?
   #   permitted
   # end
-   permit_params :title, :video, :description, :category_id, :end_user_id, :limit
+  permit_params :title, :video, :description, :category_id, :end_user_id, :limit
 
   index do
     column :title

@@ -1,5 +1,7 @@
 class EndUser::EventsController < ApplicationController
   before_action :set_event, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_end_user!, only: [:new,:create,:edit,:update,:destroy]
+  before_action :access_limit, only: [:edit]
 
   def new
     @event = Event.new
@@ -8,7 +10,6 @@ class EndUser::EventsController < ApplicationController
   def create
     @event = Event.new(event_params)
     @event.end_user_id = current_end_user.id
-
     respond_to do |format|
       if @event.save
         format.html { redirect_to end_user_events_path, notice: 'Event was successfully created.'}
@@ -44,17 +45,24 @@ class EndUser::EventsController < ApplicationController
   def destroy
     @event.destroy
     respond_to do |format|
-        format.html { redirect_to end_user_events_path, notice: 'Event was successfully destroyed.'}
-        format.json { head :no_content }
+      format.html { redirect_to end_user_events_path, notice: 'Event was successfully destroyed.'}
+      format.json { head :no_content }
     end
   end
 
-private
+  private
+
   def set_event
     @event = Event.find(params[:id])
   end
 
   def event_params
     params.require(:event).permit(:title,:start,:end,:fee,:address,:description,:image,:access,:venue,:official_site)
+  end
+
+  def access_limit
+    unless @event.end_user_id == current_end_user.id
+      redirect_to end_user_root_path
+    end
   end
 end

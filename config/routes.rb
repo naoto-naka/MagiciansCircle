@@ -18,10 +18,10 @@ Rails.application.routes.draw do
     resources :contacts,only: [:new,:create]
     resources :events
     resources :categories,only: [:index]
-    resources :favorites,only: [:index,:new,:show,:edit,:update]
+    resources :favorites,only: [:index]
     resources :videos
-      resources :video_ratings do
-        resources :reply_comments
+    resources :video_ratings do
+      resources :reply_comments
     end
     resources :tags,only: [:create,:index,:destroy] do
       post 'add' => 'tags#index'

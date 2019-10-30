@@ -1,14 +1,27 @@
 <div id="comment-edit-form<%= reply_comment.id %>"></div>
   <div id="reply_box<%= reply_comment.id %>" uk-grid >
-    <div class="uk-width-4-5">
+    <div class="uk-width-1-5">
+      <% if reply_comment.end_user.image? %>
+        <%= image_tag reply_comment.end_user.image.thumb.url,size: '40x40', class: "uk-border-circle" %>
+      <% else %>
+        <%=image_tag "no_image.png", size: '40x40', class: "uk-border-circle"  %>
+      <% end %>
+      <%= reply_comment.end_user.user_name %>
+    </div>
+    <div class="uk-width-3-5">
       <%= reply_comment.comment %>
     </div>
     <div class="uk-width-1-5">
-      <%= link_to edit_end_user_video_rating_reply_comment_path(video_rating.id,reply_comment.id),remote: true do %>
-        <span class="uk-icon-button" uk-icon="icon: pencil" uk-tooltip="コメントを編集する"></span>
-      <% end %>
-      <%= link_to end_user_video_rating_reply_comment_path(video_rating.id,reply_comment.id),method: :delete,"data-confirm": "本当に削除しますか？",remote: true do %>
-        <span class="uk-icon-button" uk-icon="icon: trash" uk-tooltip="コメントを削除する"></span>
+      <% if end_user_signed_in? %>
+        <% if reply_comment.end_user_id == current_end_user.id %>
+          <%= link_to edit_end_user_video_rating_reply_comment_path(video_rating.id,reply_comment.id),remote: true do %>
+            <span class="uk-icon-button" uk-icon="icon: pencil" uk-tooltip="コメントを編集する"></span>
+          <% end %>
+          <%= link_to end_user_video_rating_reply_comment_path(video_rating.id,reply_comment.id),method: :delete,"data-confirm": "本当に削除しますか？",remote: true do %>
+            <span class="uk-icon-button" uk-icon="icon: trash" uk-tooltip="コメントを削除する"></span>
+          <% end %>
+        <% end %>
       <% end %>
     </div>
   </div>
+</div>

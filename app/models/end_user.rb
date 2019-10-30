@@ -8,6 +8,7 @@ class EndUser < ApplicationRecord
   has_many :favorites,dependent: :destroy
   has_many :favorites_videos, through: :favorites,source: :video
   has_many :videos
+  has_many :reply_comments,dependent: :destroy
 
   def username
     self.user_name

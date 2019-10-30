@@ -31,31 +31,28 @@ class VideoUploader < CarrierWave::Uploader::Base
 
   # Create different versions of your uploaded files:
 
-   version :screenshot do
-     process :screenshot
-     def full_filename (for_file = model.logo.file)
-       "screenshot.jpg"
-     end
-   end
+  version :screenshot do
+    process :screenshot
+    def full_filename (for_file = model.logo.file)
+      "screenshot.jpg"
+    end
+  end
 
-     def screenshot
-       tmpfile = File.join(File.dirname(current_path),"tmpfile")
-
-       File.rename(current_path, tmpfile)
-
-       movie = FFMPEG::Movie.new(tmpfile)
-       movie.screenshot(current_path + ".jpg", {resolution: '512x312' }, preserve_aspect_ratio: :width)
-       File.rename(current_path + ".jpg", current_path)
-
-       File.delete(tmpfile)
-     end
+  def screenshot
+    tmpfile = File.join(File.dirname(current_path),"tmpfile")
+    File.rename(current_path, tmpfile)
+    movie = FFMPEG::Movie.new(tmpfile)
+    movie.screenshot(current_path + ".jpg", {resolution: '512x312' }, preserve_aspect_ratio: :width)
+    File.rename(current_path + ".jpg", current_path)
+    File.delete(tmpfile)
+  end
 
 
   # Add a white list of extensions which are allowed to be uploaded.
   # For images you might use something like this:
-   def extension_whitelist
-     %w(MOV wmv mp4)
-   end
+  def extension_whitelist
+    %w(MOV wmv mp4)
+  end
 
   # Override the filename of the uploaded files:
   # Avoid using model.id or version_name here, see uploader/store.rb for details.

@@ -1,9 +1,9 @@
 <div class="uk-margin">
-<%= form_with model:@video, url: end_user_videos_path,method: :get do |f| %>
-  <%= f.select :video,[["選択してください",""],["再生回数",:play],["新着順",:new],["高評価",:rate]],{},onChange:"javascript: this.form.submit_button.click();" %>
-  <%= f.hidden_field :q, value: params[:video]? params[:video][:q]:"" %>
-  <div class="secret-submit"><%= f.submit "送信", name:"submit_button"%></div>
-<% end %>
+  <%= form_with model:@video, url: end_user_videos_path,method: :get do |f| %>
+    <%= f.select :video,[["選択してください",""],["再生回数",:play],["新着順",:new],["高評価",:rate]],{},onChange:"javascript: this.form.submit_button.click();" %>
+    <%= f.hidden_field :q, value: params[:video]? params[:video][:q]:"" %>
+    <div class="secret-submit"><%= f.submit "送信", name:"submit_button"%></div>
+  <% end %>
 </div>
 
 <div id="narrow-down-videos">

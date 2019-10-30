@@ -1,16 +1,18 @@
 class EndUser::VideosController < ApplicationController
-  #before_action :authenticate_end_user!, only[:new,:create,:edit,:update,:destroy]
+  before_action :authenticate_end_user!, only: [:new,:create,:edit,:update,:destroy]
+  before_action :access_limit, only: [:edit]
+
   def new
     @video = Video.new
   end
 
   def create
-      video = Video.new(video_params)
-      video.end_user_id = current_end_user.id
-      if video.save
-        redirect_to end_user_root_path
-      else
-      end
+    @video = current_end_user.videos.build(video_params)
+    if @video.save
+      redirect_to end_user_root_path
+    else
+      render :new
+    end
   end
 
   def index
@@ -19,15 +21,15 @@ class EndUser::VideosController < ApplicationController
       @search_videos = Video.ransack(title_or_description_cont: q).result
       search_tags = Tag.ransack(name_cont: q).result
       search_tags.each do |search_tag|
-        @search_videos = Video.tagged_with(search_tag.name)
+        @search_videos = Video.tagged_with(search_tag.name).page(params[:page]).per(10)
       end
       search_category = Category.ransack(category_name_cont: q).result
       search_category.each do |search_category|
-        @search_videos = search_category.videos
+        @search_videos = search_category.videos.page(params[:page]).per(10)
       end
       search_users = EndUser.ransack(user_name_cont: q).result
       search_users.each do |search_user|
-        @search_videos = search_user.videos
+        @search_videos = search_user.videos.page(params[:page]).per(10)
       end
     else
       @search_videos = Video.page(params[:page]).per(10)
@@ -47,7 +49,6 @@ class EndUser::VideosController < ApplicationController
         format.js
       end
     end
-
   end
 
   def show
@@ -62,9 +63,15 @@ class EndUser::VideosController < ApplicationController
   end
 
   def update
-      video = Video.find(params[:id])
-      video.update(video_params)
-      redirect_to end_user_videos_path
+    video = Video.find(params[:id])
+    respond_to do |format|
+      if video.update(video_params) && video.video.recreate_versions!
+        format.html { redirect_to end_user_videos_path}
+      else
+        format.html { render action: 'edit' }
+        format.json { render json: video.errors}
+      end
+    end
   end
 
   def destroy
@@ -80,8 +87,17 @@ class EndUser::VideosController < ApplicationController
     render json: @video.views
   end
 
-private
+  private
+
   def video_params
     params.require(:video).permit(:title,:description,:video,:category_id,:q,:play,:new,:rate,:limit)
   end
+
+  def access_limit
+    @video = Video.find(params[:id])
+    unless @video.end_user_id == current_end_user.id
+      redirect_to end_user_root_path
+    end
+  end
 end
+

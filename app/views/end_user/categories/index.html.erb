@@ -1,17 +1,17 @@
 
- <% @videos.each do |video| %>
-    <%= link_to end_user_video_path(video.id),id: "under-line-delete" do %>
-      <div uk-grid class="video-container">
-        <div class="uk-width-1-4">
-          <%= video.created_at.strftime("%Y/%-m/%-d %H:%M") %>投稿<br>
-          <%= image_tag(video.video_url(:screenshot), id: "video", :alt => "screenshot") %>
-        </div>
-        <div class="uk-width-3-4 right-part">
-          <span class="title-style"><%= video.title %><br></span>
-          <%= video.end_user.user_name %>
-          <%= video.category.category_name %><br>
-          <%= video.description.truncate(50) %><br>
-        </div>
+<% @videos.each do |video| %>
+  <%= link_to end_user_video_path(video.id),id: "under-line-delete" do %>
+    <div uk-grid class="video-container">
+      <div class="uk-width-1-4">
+        <%= video.created_at.strftime("%Y/%-m/%-d %H:%M") %>投稿<br>
+        <%= image_tag(video.video_url(:screenshot), id: "video", :alt => "screenshot") %>
       </div>
-    <% end %>
+      <div class="uk-width-3-4 right-part">
+        <span class="title-style"><%= video.title %><br></span>
+        <%= video.end_user.user_name %>
+        <%= video.category.category_name %><br>
+        <%= video.description.truncate(50) %><br>
+      </div>
+    </div>
   <% end %>
+<% end %>
