@@ -1,7 +1,7 @@
 class EndUser::EventsController < ApplicationController
   before_action :set_event, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_end_user!, only: [:new,:create,:edit,:update,:destroy]
-  before_action :access_limit, only: [:edit]
+  before_action :access_limit, only: [:edit,:update,:destroy]
 
   def new
     @event = Event.new

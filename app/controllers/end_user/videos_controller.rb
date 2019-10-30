@@ -1,6 +1,6 @@
 class EndUser::VideosController < ApplicationController
   before_action :authenticate_end_user!, only: [:new,:create,:edit,:update,:destroy]
-  before_action :access_limit, only: [:edit]
+  before_action :access_limit, only: [:edit,:update,:destroy]
 
   def new
     @video = Video.new
