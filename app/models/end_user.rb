@@ -10,7 +10,7 @@ class EndUser < ApplicationRecord
   has_many :videos
   has_many :reply_comments,dependent: :destroy
 
-  validates :user_name, presence: true
+  validates :user_name, presence: true,uniqueness: true
   validates :email, presence: true
 
   def username

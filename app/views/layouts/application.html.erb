@@ -14,102 +14,161 @@
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
-  <header>
-    <nav class="uk-navbar-container uk-margin" id="navbar" uk-navbar>
-      <div class="uk-navbar-left nav-overlay">
-        <%= link_to end_user_root_path, class: "uk-navbar-item uk-logo" do %>
-          <%= image_tag "logo.jpg" %>
-        <% end %>
-        <% if end_user_signed_in? %>
-          <ul class="uk-navbar-nav">
-            <li>
-              <%= link_to destroy_end_user_session_path,method: :delete do %>
-          　    <span uk-icon="icon: sign-out"></span>ログアウト
-              <% end %>
-            </li>
-            <li>
-              <%= link_to "" do %>
-                <span uk-icon="icon: home"></span>マイページ
-              <% end %>
-              <div uk-dropdown>
-                <ul class="uk-nav uk-dropdown-nav">
-                  <li>
-                    <%= link_to end_user_favorites_path do %>
-                      <span uk-icon="icon: star"></span>お気に入り動画
-                    <% end %>
-                  </li><br>
-                  <li>
-                    <%= link_to edit_end_user_registration_path do %>
-                      <span uk-icon="icon: user"></span>アカウント情報
-                    <% end %>
-                  </li><br>
-                  <li>
-                    <%= link_to end_user_myvideos_path do %>
-                      <span uk-icon="icon: video-camera"></span>投稿動画
-                    <% end %>
-                  </li>
-                </ul>
-              </div>
-            </li>
-          </ul>
-        <% else %>
-          <ul class="uk-navbar-nav">
-            <li>
-              <%= link_to new_end_user_registration_path do %>
-          　    <span uk-icon="icon: file-text"></span>新規登録
-              <% end %>
-            </li>
-            <li>
-              <%= link_to new_end_user_session_path do %>
-          　    <span uk-icon="icon: sign-in"></span>ログイン
-              <% end %>
-            </li>
-          </ul>
-        <% end %>
-      </div>
-      <div class="nav-overlay uk-navbar-right">
-        <a class="uk-navbar-toggle" uk-search-icon uk-toggle="target: .nav-overlay; animation: uk-animation-fade" href="#"></a>
-      </div>
-      <div class="nav-overlay uk-navbar-left uk-flex-1" hidden>
-        <div class="uk-navbar-item uk-width-expand">
-          <%= form_tag end_user_videos_path,method: :get, class: "uk-search uk-search-navbar uk-width-1-1" do %>
-            <%= text_field_tag 'video[q]', '', placeholder: 'Search...',required: true,class: "uk-search-input" %>
-          <% end %>
-        </div>
-        <a class="uk-navbar-toggle" uk-close uk-toggle="target: .nav-overlay; animation: uk-animation-fade" href="#"></a>
-      </div>
-      <button uk-toggle="target: #my-id" type="button" class="bars" uk-navbar-toggle-icon></button>
-      <div id="yy" uk-offcanvas="flip: true">
-        <div class="uk-offcanvas-bar">
-          <button class="uk-offcanvas-close" type="button" uk-close></button>
-          <h3>Title</h3>
-          <%= link_to end_user_mypage_path do%>
-            <i class="fa fa-user"></i>マイページ
-          <% end %><br>
-          <%= link_to destroy_end_user_session_path,method: :delete do %>
-        　  <i class="fas fa-sign-out-alt"></i>ログアウト
-          <% end %>
-          <ul>
-            <li><%= link_to "このサイトについて", end_user_about_path %></li>
-   　　　　  <li><%= link_to "動画投稿", new_end_user_video_path %></li>
-    　　　   <li><%= link_to "動画一覧", end_user_videos_path %></li>
-    　　　   <li><%= link_to "イベントカレンダー", end_user_events_path,data:{"turbolinks"=>false} %></li>
-    　　　   <li><%= link_to "マイページ", end_user_mypage_path %></li>
-          </ul>
-        </div>
-      </div>
-    </nav>
-  </header>
   <body>
-    <div class="uk-container uk-container-center">
-      <%= yield %>
-    </div>
-  </body>
-  <footer>
-    <%= link_to new_end_user_contact_path do %>
-      <span class="uk-button"><i uk-icon="icon: mail"></i>お問い合わせ</span>
-    <% end %>
-    <div>Logo made by <a href="https://www.designevo.com/logo-maker/" title="Free Online Logo Maker">DesignEvo free logo creator</a></div>
-    <a href="https://www.ac-illust.com/main/profile.php?id=bQMFJ57O&amp;area=1">オイオイ</a>さんによる<a href="https://www.ac-illust.com/">イラストAC</a>からのイラスト
-  </footer>
-</html>
+    <header>
+      <nav class="uk-navbar-container uk-margin uk-hidden@s" uk-navbar>
+        <div class="uk-width-1-1 header-color">
+          <%= link_to end_user_root_path, class: "uk-navbar-item uk-logo" do %>
+            <%= image_tag "logo.jpg" %>
+          <% end %>
+
+          <% if end_user_signed_in? %>
+            <button class="bars" type="button" uk-toggle="target: #offcanvas-overlay" uk-navbar-toggle-icon></button>
+          <% else %>
+                <ul class="uk-navbar-nav">
+              <li>
+                <%= link_to new_end_user_registration_path do %>
+            　    <span uk-icon="icon: file-text"></span>新規登録
+                <% end %>
+              </li>
+              <li>
+                <%= link_to new_end_user_session_path do %>
+            　    <span uk-icon="icon: sign-in"></span>ログイン
+                <% end %>
+              </li>
+            </ul>
+          <% end %>
+          <div id="offcanvas-overlay" uk-offcanvas="overlay: true">
+            <div class="uk-offcanvas-bar">
+              <button class="uk-offcanvas-close" type="button" uk-close></button>
+              <h3>Menu</h3>
+              <ul>
+                <li class="menu-item">
+                  <%= link_to destroy_end_user_session_path,method: :delete do %>
+                    <span uk-icon="icon: sign-out"></span>ログアウト
+                  <% end %>
+                </li>
+                <!--<li> 今後コンテンツ拡張の際用
+                  <#= link_to end_user_mypage_path do%>
+                    <i class="fa fa-user"></i>マイページ
+                  <%# end %>
+                </li><br>-->
+                <li class="menu-item">
+                  <%= link_to end_user_about_path do %>
+                    <span uk-icon="icon: info"></span>このサイトについて
+                  <% end %>
+                </li>
+                <li class="menu-item">
+                  <%= link_to new_end_user_video_path do %>
+                    <span uk-icon="icon: video-camera"></span>動画投稿
+                  <% end %>
+                </li><br>
+                <li class="menu-item">
+                  <%= link_to end_user_videos_path do %>
+                    <span uk-icon="icon: video-camera"></span>動画一覧
+                  <% end %>
+                </li><br>
+                <li class="menu-item">
+                  <%= link_to new_end_user_event_path,data:{"turbolinks"=>false} do %>
+                    <span uk-icon="icon: calendar"></span>イベント投稿
+                  <% end %>
+                </li>
+                <li class="menu-item">
+                  <%= link_to end_user_events_path,data:{"turbolinks"=>false} do %>
+                    <span uk-icon="icon: calendar"></span>イベント一覧
+                  <% end %>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="uk-navbar-item uk-width-expand">
+            <%= form_tag end_user_videos_path,method: :get, class: "uk-search uk-search-default uk-search-navbar uk-width-1-1" do %>
+            <form class="">
+              <span uk-search-icon></span>
+              <%= text_field_tag 'video[q]', '', placeholder: 'Search...',required: true,class: "uk-search-input" %>
+            <% end %>
+          </div>
+        </div>
+      </nav>
+
+      <nav class="uk-navbar-container uk-visible@l" id="navbar" uk-navbar>
+        <div class="uk-navbar-left nav-overlay">
+          <%= link_to end_user_root_path, class: "uk-navbar-item uk-logo" do %>
+            <%= image_tag "logo.jpg" %>
+          <% end %>
+          <% if end_user_signed_in? %>
+            <ul class="uk-navbar-nav">
+              <li>
+                <%= link_to destroy_end_user_session_path,method: :delete do %>
+            　    <span uk-icon="icon: sign-out"></span>ログアウト
+                <% end %>
+              </li>
+              <li>
+                <%= link_to "" do %>
+                  <span uk-icon="icon: home"></span>マイページ
+                <% end %>
+                <div uk-dropdown>
+                  <ul class="uk-nav uk-dropdown-nav">
+                    <li>
+                      <%= link_to end_user_favorites_path do %>
+                        <span uk-icon="icon: star"></span>お気に入り動画
+                      <% end %>
+                    </li><br>
+                    <li>
+                      <%= link_to edit_end_user_registration_path do %>
+                        <span uk-icon="icon: user"></span>アカウント情報
+                      <% end %>
+                    </li><br>
+                    <li>
+                      <%= link_to end_user_myvideos_path do %>
+                        <span uk-icon="icon: video-camera"></span>投稿動画
+                      <% end %>
+                    </li>
+                  </ul>
+                </div>
+              </li>
+            </ul>
+          <% else %>
+            <ul class="uk-navbar-nav">
+              <li>
+                <%= link_to new_end_user_registration_path do %>
+            　    <span uk-icon="icon: file-text"></span>新規登録
+                <% end %>
+              </li>
+              <li>
+                <%= link_to new_end_user_session_path do %>
+            　    <span uk-icon="icon: sign-in"></span>ログイン
+                <% end %>
+              </li>
+            </ul>
+          <% end %>
+        </div>
+        <div class="nav-overlay uk-navbar-right">
+          <a class="uk-navbar-toggle" uk-search-icon uk-toggle="target: .nav-overlay; animation: uk-animation-fade" href="#"></a>
+        </div>
+        <div class="nav-overlay uk-navbar-left uk-flex-1" hidden>
+          <div class="uk-navbar-item uk-width-expand">
+            <%= form_tag end_user_videos_path,method: :get, class: "uk-search uk-search-navbar uk-width-1-1" do %>
+              <%= text_field_tag 'video[q]', '', placeholder: 'Search...',required: true,class: "uk-search-input" %>
+            <% end %>
+          </div>
+          <a class="uk-navbar-toggle" uk-close uk-toggle="target: .nav-overlay; animation: uk-animation-fade" href="#"></a>
+        </div>
+        
+
+
+      </nav>
+    </header>
+
+      <div class="uk-container uk-container-center">
+        <%= yield %>
+      </div>
+
+    <footer>
+      <p style="color: white;">©2019 Naoto Nakajima</p>
+      <%= link_to new_end_user_contact_path do %>
+        <span style="color: white;" class="uk-button"><i uk-icon="icon: mail"></i>お問い合わせ</span>
+      <% end %>
+    </footer>
+    </body>
+  </html>

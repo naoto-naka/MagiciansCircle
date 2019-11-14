@@ -16,34 +16,17 @@ class EndUser::VideosController < ApplicationController
   end
 
   def index
+
+    @video = Video.new
+
     if params[:video]
-      q = video_params[:q]
-      @search_videos = Video.ransack(title_or_description_cont: q).result
-      search_tags = Tag.ransack(name_cont: q).result
-      search_tags.each do |search_tag|
-        @search_videos = Video.tagged_with(search_tag.name).page(params[:page]).per(10)
-      end
-      search_category = Category.ransack(category_name_cont: q).result
-      search_category.each do |search_category|
-        @search_videos = search_category.videos.page(params[:page]).per(10)
-      end
-      search_users = EndUser.ransack(user_name_cont: q).result
-      search_users.each do |search_user|
-        @search_videos = search_user.videos.page(params[:page]).per(10)
-      end
+      @search_videos = @video.search_videos(video_params[:q],params[:page])
     else
       @search_videos = Video.page(params[:page]).per(10)
     end
 
-    @video = Video.new
     if params[:video]
-      if params[:video][:video] == "rate"
-        @narrow_down_videos = @search_videos.sort_by{|video| video.video_ratings.sum(:rate)}.reverse
-      elsif params[:video][:video] == "new"
-        @narrow_down_videos = @search_videos.order(created_at: :desc)
-      elsif params[:video][:video] == "play"
-        @narrow_down_videos = @search_videos.order(views: :desc)
-      end
+      @narrow_down_videos = @video.narrow_down_video(params[:video][:video],@search_videos)
       respond_to do |format|
         format.html
         format.js

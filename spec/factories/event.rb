@@ -8,5 +8,6 @@ FactoryBot.define  do
 	    address{"東京都"}
 	    description{"あああ"}
 	    access{"徒歩１０分"}
+	    association :end_user
 	end
 end

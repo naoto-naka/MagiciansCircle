@@ -8,7 +8,7 @@ class EndUser::RegistrationsController < Devise::RegistrationsController
   end
 
   def myvideos
-    @videos = Video.where(end_user_id: current_end_user.id )
+    @videos = Video.where(end_user_id: current_end_user.id ).page(params[:page]).per(10)
   end
 
   # GET /resource/sign_up

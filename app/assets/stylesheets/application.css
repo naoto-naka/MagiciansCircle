@@ -22,7 +22,8 @@
 body{
   height: 1500px;
   margin: 0;
-  font-family: 'ヒラギノ明朝 ProN','Hiragino Mincho ProN','Avenir','Helvetica Neue','Helvetica','Arial','Hiragino Sans','ヒラギノ角ゴシック',YuGothic,'Yu Gothic','メイリオ', Meiryo,'ＭＳ Ｐゴシック','MS PGothic'  
+  font-family: 'ヒラギノ明朝 ProN','Hiragino Mincho ProN','Avenir','Helvetica Neue','Helvetica','Arial','Hiragino Sans','ヒラギノ角ゴシック',YuGothic,'Yu Gothic','メイリオ', Meiryo,'ＭＳ Ｐゴシック','MS PGothic';
+  cursor: url("/images/stick.png"),auto;
 }
 .search-button{
   height: 30px;
@@ -94,13 +95,11 @@ li{
   border-style: none;
   outline: 0;
   display: none;
+  color: white;
 }
 a:hover{
   color: black;
   background-color: transparent;
-}
-body{
-  margin-top: 10px;
 }
 header{
   height: 85px;
@@ -111,7 +110,7 @@ header{
 footer{
   text-align: center;
   background-color: black;
-  height: 200px;
+  height: 80px;
 }
 .login-form{
   height: 200px;
@@ -135,4 +134,18 @@ footer{
   .bars{
     display: block;
   }
+  .header-color{
+    background-color: black;
+  }
+  header{
+    margin-bottom: 90px;
+  }
+  .menu-item{
+    margin-bottom: 60px;
+    font-size: 20px;
+  }
+  .uk-navbar-item, .uk-navbar-nav>li>a, .uk-navbar-toggle {
+    min-height: 45px;
+  }
+
 }

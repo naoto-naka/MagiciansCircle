@@ -45,9 +45,16 @@
         <img src="/images/video-index.png">　　動画一覧　　　<img src="/images/video-index.png">
       <% end %>
     </div>
+    <% if end_user_signed_in? %>
+      <div class="site-menu">
+        <%= link_to new_end_user_event_path,data:{"turbolinks"=>false} do %>
+          <img src="/images/calendar.png">　　イベント投稿　　<img src="/images/calendar.png">
+        <% end %>
+      </div>
+    <% end %>
     <div class="site-menu">
       <%= link_to end_user_events_path,data:{"turbolinks"=>false} do %>
-        <img src="/images/calendar.png">　イベントカレンダー　<img src="/images/calendar.png">
+        <img src="/images/calendar-index.png">　　イベント一覧　　<img src="/images/calendar-index.png">
       <% end %>
     </div>
     <% if false %><!--今後コンテンツ拡張の際用-->

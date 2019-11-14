@@ -62,8 +62,15 @@ end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
-#gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
 
+group :development, :test do
+  gem 'rspec-rails'
+end
+
+group :development do
+  gem 'spring-commands-rspec'
+end
 #20191001追加
 gem 'devise'
 gem 'carrierwave'
@@ -84,6 +91,9 @@ gem 'active_admin_flat_skin'
 gem 'json'
 gem 'mysql2'
 gem 'listen', '>= 3.0.5', '< 3.2'
-#gem 'rspec-rails'
 gem 'factory_bot_rails'
 gem 'database_cleaner'
+gem 'spring-commands-rspec'
+gem 'rspec-rails'
+gem 'byebug'
+gem 'dotenv-rails'
