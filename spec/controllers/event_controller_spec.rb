@@ -69,7 +69,7 @@ RSpec.describe EndUser::EventsController, type: :controller do
 		        sign_in @user
 		        expect{
 		          post :create, params: { event: event_params }
-		        }.to change(@user.event, :count).by(1)
+		        }.to change(@user.events, :count).by(1)
 		    end
 		end
 
