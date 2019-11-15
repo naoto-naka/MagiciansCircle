@@ -2,7 +2,7 @@
   MagiciansCircle
 # 概要
   マジックを行う人(未経験者〜上級者)向けに作成した、情報共有サイトです。
-#実装機能
+# 実装機能
   **動画関連**                 **イベント関連**
 　 +動画投稿機能                +イベント投稿機能
     └プライベート設定機能         └GoogleMap表示(googleAPI)
@@ -23,7 +23,7 @@
 # バージョン
   ruby version (2.5.5p157)
   rails version (5.2.3)
-#使用ライブラリ
+# 使用ライブラリ
   gem 'devise'
   gem 'carrierwave'
   gem 'streamio-ffmpeg'
