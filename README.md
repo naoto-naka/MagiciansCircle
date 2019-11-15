@@ -32,7 +32,7 @@
 # 特徴
   動画の部分リピート機能により、見たいシーンを何度も繰り返し確認することができます。
 # バージョン
-  ruby version (2.5.5p157)
+  ruby version (2.5.5p157) 
   rails version (5.2.3)
 # 使用ライブラリ
   gem 'devise'
