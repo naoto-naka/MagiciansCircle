@@ -89,7 +89,6 @@ gem 'http'
 gem 'just-datetime-picker'
 gem 'active_admin_flat_skin'
 gem 'json'
-gem 'mysql2'
 gem 'listen', '>= 3.0.5', '< 3.2'
 gem 'factory_bot_rails'
 gem 'database_cleaner'
@@ -97,3 +96,7 @@ gem 'spring-commands-rspec'
 gem 'rspec-rails'
 gem 'byebug'
 gem 'dotenv-rails'
+
+group :production do
+  gem 'mysql2'
+end

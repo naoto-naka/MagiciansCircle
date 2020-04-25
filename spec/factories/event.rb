@@ -9,5 +9,9 @@ FactoryBot.define  do
 	    description{"あああ"}
 	    access{"徒歩１０分"}
 	    association :end_user
+
+	    trait :invalid do
+	    	title{ nil }
+	    end
 	end
 end

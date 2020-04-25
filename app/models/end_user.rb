@@ -9,6 +9,7 @@ class EndUser < ApplicationRecord
   has_many :favorites_videos, through: :favorites,source: :video
   has_many :videos
   has_many :reply_comments,dependent: :destroy
+  has_many :events
 
   validates :user_name, presence: true,uniqueness: true
   validates :email, presence: true
