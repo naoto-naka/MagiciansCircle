@@ -42,13 +42,13 @@
     <% end %>
     <div class="site-menu">
       <%= link_to end_user_videos_path do %>
-        <%= image_tag "video-index.png" %>　　動画一覧　　　<%= image src "video-index.png" %>
+        <%= image_tag "video-index.png" %>　　動画一覧　　　<%= image_tag "video-index.png" %>
       <% end %>
     </div>
     <% if end_user_signed_in? %>
       <div class="site-menu">
         <%= link_to new_end_user_event_path,data:{"turbolinks"=>false} do %>
-          <%= image_tag "calendar.png" %>　　イベント投稿　　<%= image src "calendar.png" %>
+          <%= image_tag "calendar.png" %>　　イベント投稿　　<%= image_tag "calendar.png" %>
         <% end %>
       </div>
     <% end %>
@@ -66,7 +66,7 @@
     <% end %>
   </div>
   <div class="uk-width-3-4@l uk-width-1-1 uk-text-center uk-margin">
-    <h2><%= image_tag "tranpuline.png" class="ranking-title" %> 高評価動画ランキング <%= image_tag "tranpuline.png" class="ranking-title" %></h2>
+    <h2><%= image_tag "tranpuline.png",class:"ranking-title" %> 高評価動画ランキング <%= image_tag "tranpuline.png",class:"ranking-title" %></h2>
     <% if @videos_rating_ranking %>
       <div uk-grid>
         <% @videos_rating_ranking.each.with_index(1) do |ranking,i| %>
@@ -79,7 +79,7 @@
         <% end %>
       </div>
     <% end %>
-    <h2><%= image_tag "tranpuline.png" class="ranking-title" %> 再生回数ランキング <%= image_tag "tranpuline.png" class="ranking-title" %></h2>
+    <h2><%= image_tag "tranpuline.png",class:"ranking-title" %> 再生回数ランキング <%= image_tag "tranpuline.png",class:"ranking-title" %></h2>
     <% if @videos_views_ranking %>
       <div uk-grid>
         <% @videos_views_ranking.each.with_index(1) do |ranking,i| %>
@@ -92,7 +92,7 @@
         <% end %>
       </div>
     <% end %>
-    <h2><%= image_tag "tranpuline.png" class="new-videos" %> 新着動画 <%= image_tag "/images/tranpuline.png" class="new-videos" %></h2>
+    <h2><%= image_tag "tranpuline.png",class:"new-videos" %> 新着動画 <%= image_tag "/images/tranpuline.png",class:"new-videos" %></h2>
     <% if @new_videos %>
       <div uk-grid>
         <% @new_videos.each do |video| %>
